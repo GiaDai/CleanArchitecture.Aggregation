@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using CleanArchitecture.Aggregation.Application.Features.Products.Commands.CreateProduct;
 using CleanArchitecture.Aggregation.Application.Features.Products.Queries.GetAllProducts;
+using CleanArchitecture.Aggregation.Application.TypeInputs;
 using CleanArchitecture.Aggregation.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CleanArchitecture.Aggregation.Application.Mappings
 {
@@ -14,6 +12,7 @@ namespace CleanArchitecture.Aggregation.Application.Mappings
         {
             CreateMap<Product, GetAllProductsViewModel>().ReverseMap();
             CreateMap<CreateProductCommand, Product>();
+            CreateMap<ProductTypeInput, Product>().ReverseMap();
             CreateMap<GetAllProductsQuery, GetAllProductsParameter>();
         }
     }

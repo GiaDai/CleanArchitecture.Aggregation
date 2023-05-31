@@ -1,17 +1,10 @@
-using CleanArchitecture.Aggregation.Infrastructure.Identity;
 using CleanArchitecture.Aggregation.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.Aggregation.WebApi
@@ -20,45 +13,35 @@ namespace CleanArchitecture.Aggregation.WebApi
     {
         public async static Task Main(string[] args)
         {
-            //Read Configuration from appSettings
-            var config = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            //Initialize Logger
-            Log.Logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(config)
-                .CreateLogger();
+            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             var host = CreateHostBuilder(args).Build();
-            using (var scope = host.Services.CreateScope())
+            if (environment == Environments.Production)
             {
-                var services = scope.ServiceProvider;
-                var loggerFactory = services.GetRequiredService<ILoggerFactory>();
-                try
+                using (var scope = host.Services.CreateScope())
                 {
-                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                    var services = scope.ServiceProvider;
+                    var logger = services.GetService<ILogger<Program>>();
+                    try
+                    {
+                        var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-                    await Infrastructure.Identity.Seeds.DefaultRoles.SeedAsync(userManager, roleManager);
-                    await Infrastructure.Identity.Seeds.DefaultSuperAdmin.SeedAsync(userManager, roleManager);
-                    await Infrastructure.Identity.Seeds.DefaultBasicUser.SeedAsync(userManager, roleManager);
-                    Log.Information("Finished Seeding Default Data");
-                    Log.Information("Application Starting");
-                }
-                catch (Exception ex)
-                {
-                    Log.Warning(ex, "An error occurred seeding the DB");
-                }
-                finally
-                {
-                    Log.CloseAndFlush();
+                        await Infrastructure.Identity.Seeds.DefaultRoles.SeedAsync(userManager, roleManager);
+                        await Infrastructure.Identity.Seeds.DefaultSuperAdmin.SeedAsync(userManager, roleManager);
+                        await Infrastructure.Identity.Seeds.DefaultBasicUser.SeedAsync(userManager, roleManager);
+                        logger.LogInformation("Finished Seeding Default Data");
+                        logger.LogInformation("Application Starting");
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.LogError(ex, "An error occurred seeding the DB");
+                    }
                 }
             }
             host.Run();
         }
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-            .UseSerilog() //Uses Serilog instead of default .NET Logger
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

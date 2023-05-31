@@ -1,4 +1,5 @@
-﻿using HotChocolate.Types;
+﻿using CleanArchitecture.Aggregation.WebApi.GraphQL.Queries.Types;
+using HotChocolate.Types;
 
 namespace CleanArchitecture.Aggregation.WebApi.GraphQL.Queries
 {
@@ -6,7 +7,10 @@ namespace CleanArchitecture.Aggregation.WebApi.GraphQL.Queries
     {
         protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
         {
-
+            descriptor.Field(f => f.GetProducts(default!))
+                .Name("GetProducts")
+                .Type<ListType<ProductType>>()
+                .Description("Danh sách sản phẩm");
         }
     }
 }

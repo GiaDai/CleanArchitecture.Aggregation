@@ -42,8 +42,4 @@
     <ProjectReference Include="..\CleanArchitecture.Aggregation.Infrastructure.Shared\CleanArchitecture.Aggregation.Infrastructure.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="GraphQL\Queries\Types\" />
-  </ItemGroup>
-
 </Project>

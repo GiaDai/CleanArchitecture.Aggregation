@@ -1,9 +1,12 @@
+using AutoMapper;
 using CleanArchitecture.Aggregation.Application;
 using CleanArchitecture.Aggregation.Application.Interfaces;
 using CleanArchitecture.Aggregation.Infrastructure.Identity;
 using CleanArchitecture.Aggregation.Infrastructure.Persistence;
 using CleanArchitecture.Aggregation.Infrastructure.Shared;
 using CleanArchitecture.Aggregation.WebApi.Extensions;
+using CleanArchitecture.Aggregation.WebApi.GraphQL.Mutations;
+using CleanArchitecture.Aggregation.WebApi.GraphQL.Queries;
 using CleanArchitecture.Aggregation.WebApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -37,11 +40,18 @@ namespace CleanArchitecture.Aggregation.WebApi
             services.AddIdentityInfrastructure(_config,_env);
             services.AddPersistenceInfrastructure(_config,_env.IsProduction());
             services.AddSharedInfrastructure(_config);
+            services.AddAutoMapper(typeof(Application.Mappings.GeneralProfile));
             services.AddSwaggerExtension();
             services.AddControllers();
             services.AddApiVersioningExtension();
             services.AddHealthChecks();
             services.AddScoped<IAuthenticatedUserService, AuthenticatedUserService>();
+            services.AddGraphQLServer()
+                .AddQueryType<QueryType>()
+                .AddMutationType<MutationType>()
+                .AddProjections()
+                .AddFiltering()
+                .AddSorting();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -65,6 +75,7 @@ namespace CleanArchitecture.Aggregation.WebApi
 
             app.UseEndpoints(endpoints =>
              {
+                 endpoints.MapGraphQL("/graphql");
                  endpoints.MapControllers();
              });
         }

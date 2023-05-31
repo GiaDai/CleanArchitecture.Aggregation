@@ -1,4 +1,5 @@
-﻿using HotChocolate.Types;
+﻿using CleanArchitecture.Aggregation.WebApi.GraphQL.Queries.Types;
+using HotChocolate.Types;
 
 namespace CleanArchitecture.Aggregation.WebApi.GraphQL.Mutations
 {
@@ -6,7 +7,10 @@ namespace CleanArchitecture.Aggregation.WebApi.GraphQL.Mutations
     {
         protected override void Configure(IObjectTypeDescriptor<Mutation> descriptor)
         {
-
+            descriptor.Field(f => f.CreateProductAsync(default!, default!, default!))
+                .Name("createProduct")
+                .Type<ProductType>()
+                .Description("Tạo sản phẩm");
         }
     }
 }
