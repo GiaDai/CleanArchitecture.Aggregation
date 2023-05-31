@@ -1,0 +1,27 @@
+################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Application/bin
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Application/obj
+
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Domain/bin
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Domain/obj
+
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Infrastructure.Identity/bin
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Infrastructure.Identity/obj
+
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Infrastructure.Persistence/bin
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Infrastructure.Persistence/obj
+
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Infrastructure.Shared/bin
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Infrastructure.Shared/obj
+
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApi/bin
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApi/obj
+
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Spa/bin
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Spa/obj
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Spa/ClientApp/node_modules
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Spa/ClientApp/package-lock.json
