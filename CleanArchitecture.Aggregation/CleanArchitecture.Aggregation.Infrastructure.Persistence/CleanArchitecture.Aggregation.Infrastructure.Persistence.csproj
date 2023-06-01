@@ -25,4 +25,8 @@
     <ProjectReference Include="..\CleanArchitecture.Aggregation.Domain\CleanArchitecture.Aggregation.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Seeds\" />
+  </ItemGroup>
+
 </Project>

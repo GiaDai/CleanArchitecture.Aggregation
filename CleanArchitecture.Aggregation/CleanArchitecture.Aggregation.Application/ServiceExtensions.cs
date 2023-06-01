@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
 using CleanArchitecture.Aggregation.Application.Behaviours;
-using CleanArchitecture.Aggregation.Application.Features.Products.Commands.CreateProduct;
+using CleanArchitecture.Aggregation.Application.Features.Products.Queries.GetProductById;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
 namespace CleanArchitecture.Aggregation.Application
 {
@@ -17,7 +14,8 @@ namespace CleanArchitecture.Aggregation.Application
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-            services.AddMediatR(Assembly.GetExecutingAssembly());
+            //services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddMediatR(typeof(GetProductByIdQuery).GetTypeInfo().Assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
         }

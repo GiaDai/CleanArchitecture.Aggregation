@@ -3,14 +3,16 @@ using System;
 using CleanArchitecture.Aggregation.Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CleanArchitecture.Aggregation.WebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230601025137_AddTabls")]
+    partial class AddTabls
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,7 +46,10 @@ namespace CleanArchitecture.Aggregation.WebApi.Migrations
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("SuperheroId")
+                    b.Property<Guid>("SuperheroId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int?>("SuperheroId1")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -53,7 +58,7 @@ namespace CleanArchitecture.Aggregation.WebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SuperheroId");
+                    b.HasIndex("SuperheroId1");
 
                     b.ToTable("Movies");
                 });
@@ -150,12 +155,15 @@ namespace CleanArchitecture.Aggregation.WebApi.Migrations
                     b.Property<string>("SuperPower")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("SuperheroId")
+                    b.Property<Guid>("SuperheroId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int?>("SuperheroId1")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SuperheroId");
+                    b.HasIndex("SuperheroId1");
 
                     b.ToTable("Superpowers");
                 });
@@ -163,10 +171,8 @@ namespace CleanArchitecture.Aggregation.WebApi.Migrations
             modelBuilder.Entity("CleanArchitecture.Aggregation.Domain.Entities.Movie", b =>
                 {
                     b.HasOne("CleanArchitecture.Aggregation.Domain.Entities.Superhero", "Superhero")
-                        .WithMany("Movies")
-                        .HasForeignKey("SuperheroId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("SuperheroId1");
 
                     b.Navigation("Superhero");
                 });
@@ -174,19 +180,10 @@ namespace CleanArchitecture.Aggregation.WebApi.Migrations
             modelBuilder.Entity("CleanArchitecture.Aggregation.Domain.Entities.Superpower", b =>
                 {
                     b.HasOne("CleanArchitecture.Aggregation.Domain.Entities.Superhero", "Superhero")
-                        .WithMany("Superpowers")
-                        .HasForeignKey("SuperheroId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("SuperheroId1");
 
                     b.Navigation("Superhero");
-                });
-
-            modelBuilder.Entity("CleanArchitecture.Aggregation.Domain.Entities.Superhero", b =>
-                {
-                    b.Navigation("Movies");
-
-                    b.Navigation("Superpowers");
                 });
 #pragma warning restore 612, 618
         }

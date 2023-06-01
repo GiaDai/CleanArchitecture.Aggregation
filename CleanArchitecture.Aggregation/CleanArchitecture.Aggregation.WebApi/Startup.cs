@@ -1,3 +1,4 @@
+using AppAny.HotChocolate.FluentValidation;
 using AutoMapper;
 using CleanArchitecture.Aggregation.Application;
 using CleanArchitecture.Aggregation.Application.Interfaces;
@@ -42,16 +43,18 @@ namespace CleanArchitecture.Aggregation.WebApi
             services.AddSharedInfrastructure(_config);
             services.AddAutoMapper(typeof(Application.Mappings.GeneralProfile));
             services.AddSwaggerExtension();
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(o => o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddApiVersioningExtension();
             services.AddHealthChecks();
             services.AddScoped<IAuthenticatedUserService, AuthenticatedUserService>();
             services.AddGraphQLServer()
+                .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = _env.IsDevelopment())
                 .AddQueryType<QueryType>()
                 .AddMutationType<MutationType>()
                 .AddProjections()
                 .AddFiltering()
-                .AddSorting();
+                .AddSorting()
+                .AddFluentValidation();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -64,13 +67,13 @@ namespace CleanArchitecture.Aggregation.WebApi
             {
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
+                app.UseErrorHandlingMiddleware();
             }
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSwaggerExtension();
-            app.UseErrorHandlingMiddleware();
             app.UseHealthChecks("/health");
 
             app.UseEndpoints(endpoints =>

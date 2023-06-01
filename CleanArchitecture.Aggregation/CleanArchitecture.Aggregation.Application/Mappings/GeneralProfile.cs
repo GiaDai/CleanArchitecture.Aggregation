@@ -14,6 +14,10 @@ namespace CleanArchitecture.Aggregation.Application.Mappings
             CreateMap<CreateProductCommand, Product>();
             CreateMap<ProductTypeInput, Product>().ReverseMap();
             CreateMap<GetAllProductsQuery, GetAllProductsParameter>();
+
+            CreateMap<Superhero, SuperHeroTypeInput>().ReverseMap();
+            CreateMap<Movie, MovieTypeInput>().ReverseMap();
+            CreateMap<Superpower, SuperPowerTypeInput>().ReverseMap();
         }
     }
 }

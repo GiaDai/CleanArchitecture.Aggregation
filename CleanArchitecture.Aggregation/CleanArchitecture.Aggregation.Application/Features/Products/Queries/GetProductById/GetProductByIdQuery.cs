@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Aggregation.Application.Exceptions;
+﻿using AutoMapper;
+using CleanArchitecture.Aggregation.Application.Exceptions;
 using CleanArchitecture.Aggregation.Application.Interfaces.Repositories;
 using CleanArchitecture.Aggregation.Application.Wrappers;
 using CleanArchitecture.Aggregation.Domain.Entities;
@@ -16,9 +17,11 @@ namespace CleanArchitecture.Aggregation.Application.Features.Products.Queries.Ge
         public int Id { get; set; }
         public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, Response<Product>>
         {
+            private readonly IMapper _mapper;
             private readonly IProductRepositoryAsync _productRepository;
-            public GetProductByIdQueryHandler(IProductRepositoryAsync productRepository)
+            public GetProductByIdQueryHandler(IProductRepositoryAsync productRepository,IMapper mapper)
             {
+                _mapper = mapper;
                 _productRepository = productRepository;
             }
             public async Task<Response<Product>> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)

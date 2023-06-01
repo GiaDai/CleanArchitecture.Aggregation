@@ -2,11 +2,7 @@
 using CleanArchitecture.Aggregation.Domain.Common;
 using CleanArchitecture.Aggregation.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,6 +20,9 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Persistence.Contexts
             _authenticatedUser = authenticatedUser;
         }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<Superhero> Superheros { get; set; }
+        public DbSet<Superpower> Superpowers { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
