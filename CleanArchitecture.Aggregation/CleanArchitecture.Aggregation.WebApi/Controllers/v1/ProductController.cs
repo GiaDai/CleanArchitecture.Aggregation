@@ -1,15 +1,10 @@
-﻿using CleanArchitecture.Aggregation.Application.Features.Products.Commands;
-using CleanArchitecture.Aggregation.Application.Features.Products.Commands.CreateProduct;
+﻿using CleanArchitecture.Aggregation.Application.Features.Products.Commands.CreateProduct;
 using CleanArchitecture.Aggregation.Application.Features.Products.Commands.DeleteProductById;
 using CleanArchitecture.Aggregation.Application.Features.Products.Commands.UpdateProduct;
 using CleanArchitecture.Aggregation.Application.Features.Products.Queries.GetAllProducts;
 using CleanArchitecture.Aggregation.Application.Features.Products.Queries.GetProductById;
-using CleanArchitecture.Aggregation.Application.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860

@@ -22,6 +22,9 @@
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApi/bin
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApi/obj
 
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Test/bin
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Test/obj
+
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Spa/bin
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Spa/obj
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Spa/ClientApp/node_modules

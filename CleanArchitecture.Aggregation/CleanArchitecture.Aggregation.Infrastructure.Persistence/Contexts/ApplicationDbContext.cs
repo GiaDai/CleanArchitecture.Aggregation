@@ -13,16 +13,17 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Persistence.Contexts
         private readonly IDateTimeService _dateTime;
         private readonly IAuthenticatedUserService _authenticatedUser;
 
+        public ApplicationDbContext() {}
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDateTimeService dateTime, IAuthenticatedUserService authenticatedUser) : base(options)
         {
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
             _dateTime = dateTime;
             _authenticatedUser = authenticatedUser;
         }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Movie> Movies { get; set; }
-        public DbSet<Superhero> Superheros { get; set; }
-        public DbSet<Superpower> Superpowers { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Movie> Movies { get; set; }
+        public virtual DbSet<Superhero> Superheros { get; set; }
+        public virtual DbSet<Superpower> Superpowers { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
