@@ -8,6 +8,10 @@ namespace CleanArchitecture.Aggregation.Application.Interfaces.Repositories
 {
     public interface IProductRepositoryAsync : IGenericRepositoryAsync<Product>
     {
+        // Check if the barcode is unique
         Task<bool> IsUniqueBarcodeAsync(string barcode);
+
+        // Compute average rate of all products
+        Task<double> ComputeAverageRateAsync();
     }
 }

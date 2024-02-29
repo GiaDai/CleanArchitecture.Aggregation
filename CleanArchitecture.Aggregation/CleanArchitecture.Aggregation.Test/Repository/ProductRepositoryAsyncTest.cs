@@ -1,53 +1,88 @@
-﻿using CleanArchitecture.Aggregation.Application.Interfaces.Repositories;
+﻿using CleanArchitecture.Aggregation.Application.Interfaces;
 using CleanArchitecture.Aggregation.Domain.Entities;
 using CleanArchitecture.Aggregation.Infrastructure.Persistence.Contexts;
 using CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories;
 using CleanArchitecture.Aggregation.Test.TestProvider;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Aggregation.Test.Repository
 {
     public class ProductRepositoryAsyncTest
     {
-        private Mock<ApplicationDbContext> _dbContext = new Mock<ApplicationDbContext>();
-        private ProductRepositoryAsync _productRepositoryAsync;
-
-        public ProductRepositoryAsyncTest()
+        // Test for IsUniqueBarcodeAsync method use InMemoryDatabase should return false
+        [Fact]
+        public async Task IsUniqueBarcodeAsync_ShouldReturnFalse()
         {
-            _productRepositoryAsync = new ProductRepositoryAsync(_dbContext.Object);
+            // Arrange
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "IsUniqueBarcodeAsync_ShouldReturnFalse")
+                .Options;
+            var dateTimeServiceMock = new Mock<IDateTimeService>();
+            var authenticatedUserServiceMock = new Mock<IAuthenticatedUserService>();
+
+            var _mockDbContext = new ApplicationDbContext(options, dateTimeServiceMock.Object, authenticatedUserServiceMock.Object);
+            var _productRepositoryAsync = new ProductRepositoryAsync(_mockDbContext);
+
+            _mockDbContext.Products.Add(new Product { Id = 1, Name = "Product 1", Barcode = "123" });
+            _mockDbContext.Products.Add(new Product { Id = 2, Name = "Product 2", Barcode = "456" });
+            await _mockDbContext.SaveChangesAsync();
+
+            // Act
+            var result = await _productRepositoryAsync.IsUniqueBarcodeAsync("123");
+
+            // Assert
+            Assert.False(result);
         }
 
-        // Test for IsUniqueBarcodeAsync method
+        // Test for IsUniqueBarcodeAsync method use InMemoryDatabase should return true
         [Fact]
         public async Task IsUniqueBarcodeAsync_ShouldReturnTrue()
         {
             // Arrange
-           var products = new TestAsyncEnumerable<Product>(new List<Product>
-           {
-                new Product { Id = 1, Name = "Product 1", Barcode = "123456", Description = "Description 1", Rate = 10 },
-                new Product { Id = 2, Name = "Product 2", Barcode = "123457", Description = "Description 2", Rate = 20 }
-            }).AsQueryable();
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "IsUniqueBarcodeAsync_ShouldReturnTrue")
+                .Options;
+            var dateTimeServiceMock = new Mock<IDateTimeService>();
+            var authenticatedUserServiceMock = new Mock<IAuthenticatedUserService>();
 
-            var mockSet = new Mock<DbSet<Product>>();
+            var _mockDbContext = new ApplicationDbContext(options, dateTimeServiceMock.Object, authenticatedUserServiceMock.Object);
+            var _productRepositoryAsync = new ProductRepositoryAsync(_mockDbContext);
 
-            mockSet.As<IAsyncEnumerable<Product>>().Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
-                .Returns(new TestAsyncEnumerator<Product>(products.GetEnumerator()));
-            mockSet.As<IQueryable<Product>>().Setup(m => m.Provider).Returns(new TestAsyncQueryProvider<Product>(products.Provider));
-            mockSet.As<IQueryable<Product>>().Setup(m => m.Expression).Returns(products.Expression);
-            mockSet.As<IQueryable<Product>>().Setup(m => m.ElementType).Returns(products.ElementType);
-            mockSet.As<IQueryable<Product>>().Setup(m => m.GetEnumerator()).Returns(products.GetEnumerator());
-            _dbContext.Setup(x => x.Products).Returns(mockSet.Object);
+            _mockDbContext.Products.Add(new Product { Id = 1, Name = "Product 1", Barcode = "123" });
+            _mockDbContext.Products.Add(new Product { Id = 2, Name = "Product 2", Barcode = "456" });
+            await _mockDbContext.SaveChangesAsync();
+
             // Act
-            var result = await _productRepositoryAsync.IsUniqueBarcodeAsync("123456");
+            var result = await _productRepositoryAsync.IsUniqueBarcodeAsync("789");
 
             // Assert
             Assert.True(result);
+        }
+
+        // Test for ComputeAverageRateAsync method use InMemoryDatabase should return 3.5
+        [Fact]
+        public async Task ComputeAverageRateAsync_ShouldReturn3_5()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "ComputeAverageRateAsync_ShouldReturn3_5")
+                .Options;
+            var dateTimeServiceMock = new Mock<IDateTimeService>();
+            var authenticatedUserServiceMock = new Mock<IAuthenticatedUserService>();
+
+            var _mockDbContext = new ApplicationDbContext(options, dateTimeServiceMock.Object, authenticatedUserServiceMock.Object);
+            var _productRepositoryAsync = new ProductRepositoryAsync(_mockDbContext);
+
+            _mockDbContext.Products.Add(new Product { Id = 1, Name = "Product 1", Rate = 3 });
+            _mockDbContext.Products.Add(new Product { Id = 2, Name = "Product 2", Rate = 4 });
+            await _mockDbContext.SaveChangesAsync();
+
+            // Act
+            var result = await _productRepositoryAsync.ComputeAverageRateAsync();
+
+            // Assert
+            Assert.Equal(3.5, result);
         }
     }
 }
