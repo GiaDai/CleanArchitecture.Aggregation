@@ -1,5 +1,4 @@
-﻿using CleanArchitecture.Aggregation.Application.Features.Products.Queries.GetAllProducts;
-using CleanArchitecture.Aggregation.Application.Features.Products.Queries.GetProductById;
+﻿using CleanArchitecture.Aggregation.Application.Features.Products.Queries.GetProductById;
 using CleanArchitecture.Aggregation.Application.Wrappers;
 using CleanArchitecture.Aggregation.Domain.Entities;
 using CleanArchitecture.Aggregation.WebApi.Controllers.v1;
@@ -7,11 +6,6 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Aggregation.Test.Controller
 {
