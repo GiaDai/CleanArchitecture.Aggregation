@@ -6,11 +6,20 @@ using StackExchange.Redis.Extensions.Core.Configuration;
 using StackExchange.Redis.Extensions.Newtonsoft;
 using System;
 using System.Collections.Generic;
+using Elastic.Clients.Elasticsearch;
+using Elastic.Transport;
 
 namespace CleanArchitecture.Aggregation.WebApi.Extensions
 {
     public static class ServiceExtensions
     {
+        public static void AddElasicSearchExtension(this IServiceCollection services, IConfiguration _config)
+        {
+            var cloudId = _config["Elastic:CloudId"];
+            var apiKey = _config["Elastic:ApiKey"];
+            var client = new ElasticsearchClient(cloudId, new ApiKey(apiKey));
+            services.AddSingleton(client);
+        }
         public static void AddSwaggerExtension(this IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
@@ -59,6 +68,11 @@ namespace CleanArchitecture.Aggregation.WebApi.Extensions
         public static void AddRedisCacheExtension(this IServiceCollection services, IConfiguration configuration)
         {
             var redisConfig = configuration.GetSection("Redis").Get<RedisConfiguration>();
+            redisConfig.ConnectTimeout = 5000; // 5 seconds
+            redisConfig.ConnectRetry = 3; // 3 times
+            redisConfig.AbortOnConnectFail = false; // do not abort
+            redisConfig.CertificateValidation += (sender, certificate, chain, sslPolicyErrors) => true; // ignore certificate errors
+            
             services.AddStackExchangeRedisExtensions<NewtonsoftSerializer>(redisConfig);
         }
 

@@ -3,7 +3,6 @@ using CleanArchitecture.Aggregation.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using StackExchange.Redis;
 using StackExchange.Redis.Extensions.Core.Abstractions;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,6 +14,7 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers.v1
     public class GamesController : ControllerBase
     {
         private IRedisClient _redisCacheClient;
+        private IRedisDatabase _redisDatabase;
         public bool IsFromCache { get; set; } = false;
         private readonly GamesService _gamesService = new GamesService();
         public Game[]? Games { get; set; }
@@ -25,6 +25,7 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers.v1
         {
             _gamesService = gamesService;
             _redisCacheClient = redisCacheClient;
+            _redisDatabase = _redisCacheClient.GetDefaultDatabase();
         }
 
         [HttpGet]
@@ -34,7 +35,7 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers.v1
             var instanceId = "321";
             var cacheKey = $"Games_Cache_{instanceId}";
 
-            //Games = await _redisCacheClient.GetDbFromConfiguration().GetAsync<Game[]>(cacheKey);
+            //Games = await _redisCacheClient.GetDefaultDatabase().GetAsync<Game[]>(cacheKey);
             // Redis load data sort set from cache
             Games = (await GetPaginatedFromSortedSet(cacheKey, 1, 10)).ToArray();
 
@@ -52,9 +53,31 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers.v1
             var pageNumber = 2;
             var pageSize = 10;
             var GamePaging = GetPaginatedFromSortedSet(cacheKey, pageNumber, pageSize);
-            return Ok(new { IsFromCache, GamePaging });
+            //Games = _gamesService.LoadGames();
+            return Ok(new { IsFromCache, Games });
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] Game game)
+        {
+            var cacheKey = $"Games_Cache_{game.Id}";
+            var publishedDate = System.DateTime.Now;
+            var gameDetail = new HashEntry[]
+            {
+                new HashEntry("Id", game.Id),
+                new HashEntry("Title", game.Title),
+                new HashEntry("Genre", game.Genre),
+                new HashEntry("Platform", game.Platform),
+                new HashEntry("ReleaseYear", game.ReleaseYear),
+                new HashEntry("PublishedDate", publishedDate.ToString("yyyy-MM-ddTHH:mm:ssZ"))
+            };
+
+            await _redisCacheClient.GetDefaultDatabase().HashSetAsync(cacheKey, $"game_{game.Id}", gameDetail);
+            // Thêm postId vào Sorted Set với thời gian xuất bản làm điểm số
+            await _redisCacheClient.GetDefaultDatabase().SortedSetAddAsync("game_sorted_by_published_date", game.Id, publishedDate.Ticks);
+            return Ok();
+        }
+        
         private async Task AddToSortedSet(string key, List<Game> objects)
         {
             foreach (var obj in objects)

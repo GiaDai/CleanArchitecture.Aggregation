@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Elastic.Clients.Elasticsearch" Version="8.12.0" />
     <PackageReference Include="FluentValidation" Version="11.1.1" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.1.1" />
 	<PackageReference Include="AppAny.HotChocolate.FluentValidation" Version="0.11.0" />
@@ -18,10 +19,12 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.2" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="NEST" Version="7.17.5" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="StackExchange.Redis" Version="2.7.27" />
-    <PackageReference Include="StackExchange.Redis.Extensions.AspNetCore" Version="10.0.0" />
-    <PackageReference Include="StackExchange.Redis.Extensions.Newtonsoft" Version="5.5.0" />
+    <PackageReference Include="StackExchange.Redis.Extensions.AspNetCore" Version="10.2.0" />
+    <PackageReference Include="StackExchange.Redis.Extensions.Core" Version="10.2.0" />
+    <PackageReference Include="StackExchange.Redis.Extensions.Newtonsoft" Version="10.2.0" />
     <PackageReference Include="System.Text.Json" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
