@@ -1,7 +1,7 @@
 ﻿using CleanArchitecture.Aggregation.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Elastic.Clients.Elasticsearch;
-
+using Nest;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.Aggregation.WebApi.Controllers.v1
@@ -108,6 +108,30 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers.v1
             if (response.IsValidResponse)
             {
                 return Ok(response.Total);
+            }
+            return BadRequest();
+        }
+
+        // Get book where PageCount > 300
+        [HttpGet("getbookbypagecount")]
+        public async Task<IActionResult> GetBookByPageCount()
+        {
+            var response = await _client.SearchAsync<Book>(s => s
+                                    .Index("book")
+                                    .Query(q => q
+                                        .Bool(b => b
+                                            .Filter(f => f
+                                                .Range(r => r.NumberRange(n => n.Field(f => f.PageCount)
+                                                    .Gt(300)
+                                                    ))
+                                                )
+                                            )
+                                        )
+                                    .Size(1000)
+                                    );
+            if (response.IsValidResponse)
+            {
+                return Ok(response.Documents);
             }
             return BadRequest();
         }
