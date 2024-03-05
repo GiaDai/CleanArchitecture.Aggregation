@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using Elastic.Clients.Elasticsearch;
 using Elastic.Transport;
+using System.Reflection;
+using System.IO;
 
 namespace CleanArchitecture.Aggregation.WebApi.Extensions
 {
@@ -24,7 +26,8 @@ namespace CleanArchitecture.Aggregation.WebApi.Extensions
         {
             services.AddSwaggerGen(c =>
             {
-                c.IncludeXmlComments(string.Format(@"{0}\CleanArchitecture.Aggregation.WebApi.xml", System.AppDomain.CurrentDomain.BaseDirectory));
+                // c.IncludeXmlComments(string.Format(@"{0}\CleanArchitecture.Aggregation.WebApi.xml", System.AppDomain.CurrentDomain.BaseDirectory));
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,$"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
