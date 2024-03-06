@@ -1,8 +1,6 @@
 using AppAny.HotChocolate.FluentValidation;
-using AutoMapper;
 using CleanArchitecture.Aggregation.Application;
 using CleanArchitecture.Aggregation.Application.Interfaces;
-using CleanArchitecture.Aggregation.Application.Services;
 using CleanArchitecture.Aggregation.Infrastructure.Identity;
 using CleanArchitecture.Aggregation.Infrastructure.Persistence;
 using CleanArchitecture.Aggregation.Infrastructure.Shared;
@@ -10,7 +8,6 @@ using CleanArchitecture.Aggregation.WebApi.Data;
 using CleanArchitecture.Aggregation.WebApi.Extensions;
 using CleanArchitecture.Aggregation.WebApi.GraphQL.Mutations;
 using CleanArchitecture.Aggregation.WebApi.GraphQL.Queries;
-using CleanArchitecture.Aggregation.WebApi.Hosted;
 using CleanArchitecture.Aggregation.WebApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,6 +38,7 @@ namespace CleanArchitecture.Aggregation.WebApi
         }
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddEnvironmentVariablesExtension();
             services.AddApplicationLayer();
             services.AddIdentityInfrastructure(_config,_env);
             services.AddPersistenceInfrastructure(_config,_env.IsProduction());

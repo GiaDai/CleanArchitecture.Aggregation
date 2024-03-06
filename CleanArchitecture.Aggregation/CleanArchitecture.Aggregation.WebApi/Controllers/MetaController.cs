@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using CleanArchitecture.Aggregation.Infrastructure.Shared.Environments;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Configuration;
 using System.Diagnostics;
 
 namespace CleanArchitecture.Aggregation.WebApi.Controllers
@@ -8,9 +12,17 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers
     public class MetaController : BaseApiController
     {
         private readonly IWebHostEnvironment _env;
-        public MetaController(IWebHostEnvironment env)
+        private readonly IConfiguration _config;
+        private readonly IDatabaseSettingsProvider _databaseSettingsProvider;
+        public MetaController(
+            IWebHostEnvironment env,
+            IConfiguration config,
+            IDatabaseSettingsProvider databaseSettingsProvider
+            )
         {
             _env = env;
+            _config = config;
+            _databaseSettingsProvider = databaseSettingsProvider;
         }
 
         [HttpGet("/info")]
@@ -28,7 +40,8 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers
         [HttpGet("/env")]
         public ActionResult<string> Env()
         {
-            return Ok($"Environment is production: {_env.IsProduction()}");
+            var postgre = _databaseSettingsProvider.GetMySQLConnectionString();
+            return Ok(postgre);
         }
     }
 }

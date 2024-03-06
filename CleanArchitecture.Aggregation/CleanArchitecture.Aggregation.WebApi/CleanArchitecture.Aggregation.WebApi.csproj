@@ -37,10 +37,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanArchitecture.Aggregation.Application\CleanArchitecture.Aggregation.Application.csproj" />
     <ProjectReference Include="..\CleanArchitecture.Aggregation.Infrastructure.Identity\CleanArchitecture.Aggregation.Infrastructure.Identity.csproj" />
     <ProjectReference Include="..\CleanArchitecture.Aggregation.Infrastructure.Persistence\CleanArchitecture.Aggregation.Infrastructure.Persistence.csproj" />
-    <ProjectReference Include="..\CleanArchitecture.Aggregation.Infrastructure.Shared\CleanArchitecture.Aggregation.Infrastructure.Shared.csproj" />
   </ItemGroup>
 
 </Project>

@@ -15,7 +15,7 @@ namespace CleanArchitecture.Aggregation.WebApi
         {
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             var host = CreateHostBuilder(args).Build();
-            if (environment == Environments.Production)
+            if (environment == "Production")
             {
                 using (var scope = host.Services.CreateScope())
                 {

@@ -10,6 +10,7 @@ using Elastic.Clients.Elasticsearch;
 using Elastic.Transport;
 using System.Reflection;
 using System.IO;
+using CleanArchitecture.Aggregation.Infrastructure.Shared.Environments;
 
 namespace CleanArchitecture.Aggregation.WebApi.Extensions
 {
@@ -79,7 +80,6 @@ namespace CleanArchitecture.Aggregation.WebApi.Extensions
             services.AddStackExchangeRedisExtensions<NewtonsoftSerializer>(redisConfig);
         }
 
-
         public static void AddApiVersioningExtension(this IServiceCollection services)
         {
             services.AddApiVersioning(config =>
@@ -91,6 +91,11 @@ namespace CleanArchitecture.Aggregation.WebApi.Extensions
                 // Advertise the API versions supported for the particular endpoint
                 config.ReportApiVersions = true;
             });
+        }
+
+        public static void AddEnvironmentVariablesExtension(this IServiceCollection services)
+        {
+            services.AddTransient<IDatabaseSettingsProvider, DatabaseSettingsProvider>();
         }
     }
 }

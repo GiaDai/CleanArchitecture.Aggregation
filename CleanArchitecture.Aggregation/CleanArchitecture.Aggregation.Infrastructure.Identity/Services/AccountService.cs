@@ -7,18 +7,15 @@ using CleanArchitecture.Aggregation.Application.Wrappers;
 using CleanArchitecture.Aggregation.Domain.Settings;
 using CleanArchitecture.Aggregation.Infrastructure.Identity.Helpers;
 using CleanArchitecture.Aggregation.Infrastructure.Identity.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
-using Org.BouncyCastle.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Net.Cache;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -34,6 +31,7 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Identity.Services
         private readonly IEmailService _emailService;
         private readonly JWTSettings _jwtSettings;
         private readonly IDateTimeService _dateTimeService;
+        private readonly IWebHostEnvironment _env;
         public AccountService(UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
             IOptions<JWTSettings> jwtSettings,

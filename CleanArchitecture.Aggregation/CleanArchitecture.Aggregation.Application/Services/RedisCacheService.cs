@@ -6,8 +6,8 @@ namespace CleanArchitecture.Aggregation.Application.Services
 {
     public class RedisCacheService
     {
-        private readonly IDistributedCache _cache;
 
+        private readonly IDistributedCache _cache;
         public RedisCacheService(IDistributedCache cache)
         {
             _cache = cache;
