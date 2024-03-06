@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Aggregation.Application.Features.Products.Commands.CreateProduct;
 using CleanArchitecture.Aggregation.Application.Features.Products.Commands.CreateProductRange;
+using CleanArchitecture.Aggregation.Application.Features.Products.Commands.DeleteProductAll;
 using CleanArchitecture.Aggregation.Application.Features.Products.Commands.DeleteProductById;
 using CleanArchitecture.Aggregation.Application.Features.Products.Commands.UpdateProduct;
 using CleanArchitecture.Aggregation.Application.Features.Products.Queries.GetAllProducts;
@@ -64,6 +65,14 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers.v1
         public async Task<IActionResult> Delete(int id)
         {
             return Ok(await Mediator.Send(new DeleteProductByIdCommand { Id = id }));
+        }
+
+        // DELETE api/<controller>/deleteall
+        [HttpDelete("deleteall")]
+        [Authorize]
+        public async Task<IActionResult> DeleteAll()
+        {
+            return Ok(await Mediator.Send(new DeleteProductAllCommand()));
         }
     }
 }

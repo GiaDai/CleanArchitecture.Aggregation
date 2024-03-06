@@ -12,9 +12,10 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories
     public class ProductRepositoryAsync : GenericRepositoryAsync<Product>, IProductRepositoryAsync
     {
         private readonly DbSet<Product> _products;
-
+        private readonly ApplicationDbContext _dbContext;
         public ProductRepositoryAsync(ApplicationDbContext dbContext) : base(dbContext)
         {
+            _dbContext = dbContext;
             _products = dbContext.Set<Product>();
         }
 
@@ -32,8 +33,17 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories
 
         public async Task<int> AddRangeAsync(IEnumerable<Product> products)
         {
-            await _products.AddRangeAsync(products);
+            await _dbContext.Products.AddRangeAsync(products);
+            await _dbContext.SaveChangesAsync();
             return products.Count();
+        }
+
+        public async Task<int> DeleteAllAsync()
+        {
+            // Write linq to delete all products
+            _dbContext.Products.RemoveRange(_products);
+            await _dbContext.SaveChangesAsync();
+            return 1;
         }
     }
 }

@@ -15,5 +15,8 @@ namespace CleanArchitecture.Aggregation.Application.Interfaces.Repositories
 
         // Compute average rate of all products
         Task<double> ComputeAverageRateAsync();
+
+        // Delete all products
+        Task<int> DeleteAllAsync();
     }
 }
