@@ -21,6 +21,8 @@
 
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApi/bin
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApi/obj
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApi/appsettings.json
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApi/appsettings.Development.json
 
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Test/bin
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Test/obj

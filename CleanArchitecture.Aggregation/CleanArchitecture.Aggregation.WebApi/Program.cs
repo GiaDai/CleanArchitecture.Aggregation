@@ -1,6 +1,9 @@
+using CleanArchitecture.Aggregation.Infrastructure.Identity.Contexts;
 using CleanArchitecture.Aggregation.Infrastructure.Identity.Models;
+using CleanArchitecture.Aggregation.Infrastructure.Persistence.Contexts;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -15,7 +18,7 @@ namespace CleanArchitecture.Aggregation.WebApi
         {
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             var host = CreateHostBuilder(args).Build();
-            if (environment == "Production")
+            if (environment == Environments.Production)
             {
                 using (var scope = host.Services.CreateScope())
                 {
@@ -25,6 +28,10 @@ namespace CleanArchitecture.Aggregation.WebApi
                     {
                         var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                         var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                        var appContext = services.GetRequiredService<ApplicationDbContext>();
+                        var identityContext = services.GetRequiredService<IdentityContext>();
+                        appContext.Database.Migrate();
+                        identityContext.Database.Migrate();
 
                         await Infrastructure.Identity.Seeds.DefaultRoles.SeedAsync(userManager, roleManager);
                         await Infrastructure.Identity.Seeds.DefaultSuperAdmin.SeedAsync(userManager, roleManager);
