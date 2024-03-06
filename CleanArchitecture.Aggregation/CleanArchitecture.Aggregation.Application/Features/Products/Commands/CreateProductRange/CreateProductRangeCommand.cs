@@ -14,7 +14,7 @@ namespace CleanArchitecture.Aggregation.Application.Features.Products.Commands.C
 {
     public class CreateProductRangeCommand : IRequest<Response<int>>
     {
-        public CreateProductCommand[] Products { get; set; }
+        public List<CreateProductCommand> Products { get; set; }
     }
 
     public class CreateProductRangeCommandHandler : IRequestHandler<CreateProductRangeCommand, Response<int>>
@@ -31,7 +31,7 @@ namespace CleanArchitecture.Aggregation.Application.Features.Products.Commands.C
         }
         public async Task<Response<int>> Handle(CreateProductRangeCommand request, CancellationToken cancellationToken)
         {
-            var products = _mapper.Map<ICollection<Product>>(request);
+            var products = _mapper.Map<List<Product>>(request.Products);
             var total = await _productRepository.AddRangeAsync(products);
             return new Response<int>(total);
         }
