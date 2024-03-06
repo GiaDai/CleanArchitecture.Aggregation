@@ -14,7 +14,7 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Persistence
 {
     public static class ServiceRegistration
     {
-        public static void AddPersistenceInfrastructure(this IServiceCollection services, IConfiguration configuration, bool isProduction)
+        public static void AddMySqlPersistenceInfrastructure(this IServiceCollection services, IConfiguration configuration, bool isProduction)
         {
             // Build the intermediate service provider
             var sp = services.BuildServiceProvider();
@@ -38,6 +38,33 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Persistence
                             b.MigrationsAssembly(isProduction ? typeof(ApplicationDbContext).Assembly.FullName : "CleanArchitecture.Aggregation.WebApi");
                             b.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
                         }));
+                }
+            }
+            #region Repositories
+            services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
+            services.AddTransient<IProductRepositoryAsync, ProductRepositoryAsync>();
+            #endregion
+        }
+
+        // Add persistence infrastructure for NpgSql
+        public static void AddNpgSqlPersistenceInfrastructure(this IServiceCollection services, IConfiguration configuration, bool isProduction)
+        {
+            // Build the intermediate service provider
+            var sp = services.BuildServiceProvider();
+            using (var scope = sp.CreateScope())
+            {
+                var _dbSetting = scope.ServiceProvider.GetRequiredService<IDatabaseSettingsProvider>();
+                string appConnStr = _dbSetting.GetPostgresConnectionString();
+                if (!string.IsNullOrWhiteSpace(appConnStr))
+                {
+                    services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseNpgsql(
+                    appConnStr,
+                    b =>
+                    {
+                        b.MigrationsAssembly(isProduction ? typeof(ApplicationDbContext).Assembly.FullName : "CleanArchitecture.Aggregation.WebApi");
+                        b.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
+                    }));
                 }
             }
             #region Repositories

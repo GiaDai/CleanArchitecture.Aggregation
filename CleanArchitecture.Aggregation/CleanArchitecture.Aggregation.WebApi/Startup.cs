@@ -40,8 +40,8 @@ namespace CleanArchitecture.Aggregation.WebApi
         {
             services.AddEnvironmentVariablesExtension();
             services.AddApplicationLayer();
-            services.AddIdentityInfrastructure(_config,_env);
-            services.AddPersistenceInfrastructure(_config,_env.IsProduction());
+            services.AddNpgSqlIdentityInfrastructure(_config,_env);
+            services.AddNpgSqlPersistenceInfrastructure(_config,_env.IsProduction());
             services.AddSharedInfrastructure(_config);
             services.AddScoped<GamesService>();
             services.AddAutoMapper(typeof(Application.Mappings.GeneralProfile));

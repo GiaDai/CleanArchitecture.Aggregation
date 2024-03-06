@@ -15,8 +15,8 @@ IConfiguration _config = builder.Configuration;
 IServiceCollection services = builder.Services;
 // Add services to the container.
 services.AddApplicationLayer();
-services.AddIdentityInfrastructure(_config, _env);
-services.AddPersistenceInfrastructure(_config, _env.IsProduction());
+services.AddMySqlIdentityInfrastructure(_config, _env);
+services.AddMySqlPersistenceInfrastructure(_config, _env.IsProduction());
 services.AddSharedInfrastructure(_config);
 services.AddControllers();
 services.AddApiVersioningExtension();
