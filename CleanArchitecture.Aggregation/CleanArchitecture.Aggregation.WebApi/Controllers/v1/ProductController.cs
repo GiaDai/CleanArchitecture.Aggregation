@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Aggregation.Application.Features.Products.Commands.CreateProduct;
+using CleanArchitecture.Aggregation.Application.Features.Products.Commands.CreateProductRange;
 using CleanArchitecture.Aggregation.Application.Features.Products.Commands.DeleteProductById;
 using CleanArchitecture.Aggregation.Application.Features.Products.Commands.UpdateProduct;
 using CleanArchitecture.Aggregation.Application.Features.Products.Queries.GetAllProducts;
@@ -33,6 +34,14 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers.v1
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> Post(CreateProductCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
+
+        // POST api/<controller>/addrange
+        [HttpPost("addrange")]
+        [Authorize]
+        public async Task<IActionResult> Post(CreateProductRangeCommand command)
         {
             return Ok(await Mediator.Send(command));
         }

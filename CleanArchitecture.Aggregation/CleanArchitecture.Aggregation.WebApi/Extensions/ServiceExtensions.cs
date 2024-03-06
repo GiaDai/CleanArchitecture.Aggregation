@@ -72,6 +72,7 @@ namespace CleanArchitecture.Aggregation.WebApi.Extensions
         public static void AddRedisCacheExtension(this IServiceCollection services, IConfiguration configuration)
         {
             var redisConfig = configuration.GetSection("Redis").Get<RedisConfiguration>();
+
             redisConfig.ConnectTimeout = 5000; // 5 seconds
             redisConfig.ConnectRetry = 3; // 3 times
             redisConfig.AbortOnConnectFail = false; // do not abort
