@@ -29,3 +29,4 @@
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Spa/obj
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Spa/ClientApp/node_modules
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Spa/ClientApp/package-lock.json
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Spa/ClientApp/yarn.lock
