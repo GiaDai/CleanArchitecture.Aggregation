@@ -3,6 +3,7 @@ using CleanArchitecture.Aggregation.Application.Interfaces.Repositories;
 using CleanArchitecture.Aggregation.Application.Wrappers;
 using CleanArchitecture.Aggregation.Domain.Entities;
 using MediatR;
+using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,9 +11,13 @@ namespace CleanArchitecture.Aggregation.Application.Features.Products.Commands.C
 {
     public partial class CreateProductCommand : IRequest<Response<int>>
     {
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Barcode { get; set; }
+        [Required]
         public string Description { get; set; }
+        [Required]
         public decimal Rate { get; set; }
     }
     public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Response<int>>
