@@ -1,4 +1,8 @@
-﻿using CleanArchitecture.Aggregation.Infrastructure.Shared.Environments;
+﻿using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Elastic;
+using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.RedisCache;
+using CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories.Elastic;
+using CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories.RedisCache;
+using CleanArchitecture.Aggregation.Infrastructure.Shared.Environments;
 using Elastic.Clients.Elasticsearch;
 using Elastic.Transport;
 using Microsoft.AspNetCore.Mvc;
@@ -109,6 +113,12 @@ namespace CleanArchitecture.Aggregation.WebApi.Extensions
             services.AddTransient<IDatabaseSettingsProvider, DatabaseSettingsProvider>();
             services.AddTransient<IRedisSettingsProvider, RedisSettingsProvider>();
             services.AddTransient<IElasticSettingsProvider, ElasticSettingsProvider>();
+        }
+
+        public static void AddDependencyInjectionExtension(this IServiceCollection services)
+        {
+            services.AddTransient<IProductRedisCacheAsync, ProductRedisCacheAsync>();
+            services.AddTransient<IProductElasticAsync, ProductElasticAsync>();
         }
     }
 }

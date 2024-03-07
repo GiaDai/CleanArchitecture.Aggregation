@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CleanArchitecture.Aggregation.Application.Features.Products.Commands.CreateProduct;
-using CleanArchitecture.Aggregation.Application.Interfaces.Repositories;
+using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Database;
 using CleanArchitecture.Aggregation.Application.Wrappers;
 using CleanArchitecture.Aggregation.Domain.Entities;
 using MediatR;

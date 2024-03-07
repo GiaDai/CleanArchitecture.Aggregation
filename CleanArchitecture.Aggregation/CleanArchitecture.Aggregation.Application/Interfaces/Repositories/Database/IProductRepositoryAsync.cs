@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.Aggregation.Application.Interfaces.Repositories
+namespace CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Database
 {
     public interface IProductRepositoryAsync : IGenericRepositoryAsync<Product>
     {

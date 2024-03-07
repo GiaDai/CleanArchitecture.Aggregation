@@ -1,6 +1,6 @@
 ﻿using AppAny.HotChocolate.FluentValidation;
 using AutoMapper;
-using CleanArchitecture.Aggregation.Application.Interfaces.Repositories;
+using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Database;
 using CleanArchitecture.Aggregation.Application.TypeInputs;
 using CleanArchitecture.Aggregation.Domain.Entities;
 using CleanArchitecture.Aggregation.Infrastructure.Persistence.Contexts;

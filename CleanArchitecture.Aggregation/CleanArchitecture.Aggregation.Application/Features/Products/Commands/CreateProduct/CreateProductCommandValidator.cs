@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Aggregation.Application.Interfaces.Repositories;
+﻿using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Database;
+using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.RedisCache;
 using FluentValidation;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,11 +8,16 @@ namespace CleanArchitecture.Aggregation.Application.Features.Products.Commands.C
 {
     public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
     {
+        private readonly IProductRedisCacheAsync _productRedisCacheAsync;
         private readonly IProductRepositoryAsync productRepository;
 
-        public CreateProductCommandValidator(IProductRepositoryAsync productRepository)
+        public CreateProductCommandValidator(
+            IProductRepositoryAsync productRepository,
+            IProductRedisCacheAsync productRedisCacheAsync
+            )
         {
             this.productRepository = productRepository;
+            _productRedisCacheAsync = productRedisCacheAsync;
 
             RuleFor(p => p.Barcode)
                 .NotEmpty().WithMessage("{PropertyName} is required.")
@@ -28,7 +34,8 @@ namespace CleanArchitecture.Aggregation.Application.Features.Products.Commands.C
 
         private async Task<bool> IsUniqueBarcode(string barcode, CancellationToken cancellationToken)
         {
-            return await productRepository.IsUniqueBarcodeAsync(barcode);
+            //return await productRepository.IsUniqueBarcodeAsync(barcode);
+            return await _productRedisCacheAsync.IsUniqueBarcodeAsync(barcode);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CleanArchitecture.Aggregation.Application.Filters;
-using CleanArchitecture.Aggregation.Application.Interfaces.Repositories;
+using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Database;
 using CleanArchitecture.Aggregation.Application.Wrappers;
 using MediatR;
 using System;

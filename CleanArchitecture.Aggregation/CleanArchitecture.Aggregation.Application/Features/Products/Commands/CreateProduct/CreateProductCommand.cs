@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
-using CleanArchitecture.Aggregation.Application.Interfaces.Repositories;
+using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Database;
+using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Elastic;
+using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.RedisCache;
 using CleanArchitecture.Aggregation.Application.Wrappers;
 using CleanArchitecture.Aggregation.Domain.Entities;
 using MediatR;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,10 +25,18 @@ namespace CleanArchitecture.Aggregation.Application.Features.Products.Commands.C
     }
     public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Response<int>>
     {
+        private readonly IProductRedisCacheAsync _productRedisCache;
         private readonly IProductRepositoryAsync _productRepository;
+        private readonly IProductElasticAsync _productElastic;
         private readonly IMapper _mapper;
-        public CreateProductCommandHandler(IProductRepositoryAsync productRepository, IMapper mapper)
+        public CreateProductCommandHandler(
+            IProductRedisCacheAsync productRedisCache,
+            IProductRepositoryAsync productRepository,
+            IProductElasticAsync productElastic,
+            IMapper mapper)
         {
+            _productElastic = productElastic;
+            _productRedisCache = productRedisCache;
             _productRepository = productRepository;
             _mapper = mapper;
         }
@@ -34,6 +45,8 @@ namespace CleanArchitecture.Aggregation.Application.Features.Products.Commands.C
         {
             var product = _mapper.Map<Product>(request);
             await _productRepository.AddAsync(product);
+            await _productRedisCache.AddAsync(product.Barcode, product, TimeSpan.FromDays(1));
+            await _productElastic.AddProductAsync(product, "product");
             return new Response<int>(product.Id);
         }
     }

@@ -1,5 +1,5 @@
 ﻿using CleanArchitecture.Aggregation.Application.Interfaces;
-using CleanArchitecture.Aggregation.Application.Interfaces.Repositories;
+using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Database;
 using CleanArchitecture.Aggregation.Infrastructure.Persistence.Contexts;
 using CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories;
 using CleanArchitecture.Aggregation.Infrastructure.Persistence.Repository;

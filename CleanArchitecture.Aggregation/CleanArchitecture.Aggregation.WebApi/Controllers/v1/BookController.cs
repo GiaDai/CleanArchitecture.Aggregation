@@ -1,13 +1,13 @@
 ﻿using CleanArchitecture.Aggregation.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Elastic.Clients.Elasticsearch;
-using Nest;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.Aggregation.WebApi.Controllers.v1
 {
     [Route("api/book")]
     [ApiController]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class BookController : ControllerBase
     {
         private readonly ElasticsearchClient _client;

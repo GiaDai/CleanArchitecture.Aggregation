@@ -2,13 +2,11 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Configuration;
 using System.Diagnostics;
 
 namespace CleanArchitecture.Aggregation.WebApi.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class MetaController : BaseApiController
     {
         private readonly IWebHostEnvironment _env;

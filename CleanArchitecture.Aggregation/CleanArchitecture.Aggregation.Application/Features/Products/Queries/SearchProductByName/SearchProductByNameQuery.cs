@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Aggregation.Application.Interfaces.Repositories;
+﻿using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Database;
+using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Elastic;
 using CleanArchitecture.Aggregation.Application.Wrappers;
 using CleanArchitecture.Aggregation.Domain.Entities;
 using MediatR;
@@ -14,15 +15,21 @@ namespace CleanArchitecture.Aggregation.Application.Features.Products.Queries.Se
         public string SearchKey { get; set; }
         public class SearchProductByNameQueryHandler : IRequestHandler<SearchProductByNameQuery, Response<List<Product>>>
         {
+            private readonly IProductElasticAsync _productElastic;
             private readonly IProductRepositoryAsync _productRepository;
-            public SearchProductByNameQueryHandler(IProductRepositoryAsync productRepository)
+            public SearchProductByNameQueryHandler(
+                IProductRepositoryAsync productRepository,
+                IProductElasticAsync productElastic
+                )
             {
+                _productElastic = productElastic;
                 _productRepository = productRepository;
             }
             public async Task<Response<List<Product>>> Handle(SearchProductByNameQuery query, CancellationToken cancellationToken)
             {
-                var products = await _productRepository.SearchByNameAsync(query.SearchKey);
-                return new Response<List<Product>>(products.ToList());
+                //var products = await _productRepository.SearchByNameAsync(query.SearchKey);
+                var productsFromElastic = await _productElastic.SearchByName(query.SearchKey, "product");
+                return new Response<List<Product>>(productsFromElastic.ToList());
             }
         }
     }

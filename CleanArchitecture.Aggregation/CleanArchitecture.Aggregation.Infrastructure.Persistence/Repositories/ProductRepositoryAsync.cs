@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Aggregation.Application.Interfaces.Repositories;
+﻿using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Database;
 using CleanArchitecture.Aggregation.Domain.Entities;
 using CleanArchitecture.Aggregation.Infrastructure.Persistence.Contexts;
 using CleanArchitecture.Aggregation.Infrastructure.Persistence.Repository;

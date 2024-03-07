@@ -6,7 +6,6 @@ using CleanArchitecture.Aggregation.Application.Features.Products.Commands.Updat
 using CleanArchitecture.Aggregation.Application.Features.Products.Queries.GetAllProducts;
 using CleanArchitecture.Aggregation.Application.Features.Products.Queries.GetProductById;
 using CleanArchitecture.Aggregation.Application.Features.Products.Queries.SearchProductByName;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -22,6 +21,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Aggregation.WebApi.Controllers.v1
 {
+    //[Authorize]
     [ApiVersion("1.0")]
     public class ProductController : BaseApiController
     {
@@ -42,7 +42,6 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers.v1
 
         // POST api/<controller>
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Post(CreateProductCommand command)
         {
             return Ok(await Mediator.Send(command));
@@ -50,7 +49,6 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers.v1
 
         // POST api/<controller>/addrange
         [HttpPost("addrange")]
-        [Authorize]
         public async Task<IActionResult> Post(CreateProductRangeCommand command)
         {
             return Ok(await Mediator.Send(command));
@@ -58,7 +56,6 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers.v1
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        [Authorize]
         public async Task<IActionResult> Put(int id, UpdateProductCommand command)
         {
             if (id != command.Id)
@@ -70,7 +67,6 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers.v1
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             return Ok(await Mediator.Send(new DeleteProductByIdCommand { Id = id }));
@@ -78,7 +74,6 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers.v1
 
         // DELETE api/<controller>/deleteall
         [HttpDelete("deleteall")]
-        [Authorize]
         public async Task<IActionResult> DeleteAll()
         {
             return Ok(await Mediator.Send(new DeleteProductAllCommand()));
@@ -86,7 +81,6 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers.v1
 
         // Method POST read file and check only accept .json file
         [HttpPost("upload")]
-        //[Authorize]
         public async Task<IActionResult> UploadJsonFile(IFormFile formFile)
         {
             // Check if file is null

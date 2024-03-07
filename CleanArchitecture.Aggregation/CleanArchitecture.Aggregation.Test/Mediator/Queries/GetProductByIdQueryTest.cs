@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CleanArchitecture.Aggregation.Application.Features.Products.Queries.GetProductById;
-using CleanArchitecture.Aggregation.Application.Interfaces.Repositories;
+using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Database;
 using CleanArchitecture.Aggregation.Domain.Entities;
 using Moq;
 using System;

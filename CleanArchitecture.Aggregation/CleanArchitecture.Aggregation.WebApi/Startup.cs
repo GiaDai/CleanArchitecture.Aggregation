@@ -39,6 +39,7 @@ namespace CleanArchitecture.Aggregation.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddEnvironmentVariablesExtension();
+            services.AddDependencyInjectionExtension();
             services.AddApplicationLayer();
             services.AddNpgSqlIdentityInfrastructure(_config,_env);
             services.AddNpgSqlPersistenceInfrastructure(_config,_env.IsProduction());

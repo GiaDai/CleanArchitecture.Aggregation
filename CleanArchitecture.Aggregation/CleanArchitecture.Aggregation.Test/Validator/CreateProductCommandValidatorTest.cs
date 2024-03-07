@@ -1,5 +1,5 @@
 ﻿using CleanArchitecture.Aggregation.Application.Features.Products.Commands.CreateProduct;
-using CleanArchitecture.Aggregation.Application.Interfaces.Repositories;
+using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Database;
 using CleanArchitecture.Aggregation.Domain.Entities;
 using Moq;
 

@@ -11,6 +11,7 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers.v1
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class GamesController : ControllerBase
     {
         private IRedisClient _redisCacheClient;
