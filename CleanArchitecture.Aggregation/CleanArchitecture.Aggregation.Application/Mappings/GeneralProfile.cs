@@ -11,7 +11,7 @@ namespace CleanArchitecture.Aggregation.Application.Mappings
         public GeneralProfile()
         {
             CreateMap<Product, GetAllProductsViewModel>().ReverseMap();
-            CreateMap<CreateProductCommand, Product>();
+            CreateMap<CreateProductCommand, Product>().ReverseMap();
             CreateMap<ProductTypeInput, Product>().ReverseMap();
             CreateMap<GetAllProductsQuery, GetAllProductsParameter>();
 

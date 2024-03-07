@@ -71,14 +71,19 @@ namespace CleanArchitecture.Aggregation.WebApi.Extensions
 
         public static void AddRedisCacheExtension(this IServiceCollection services, IConfiguration configuration)
         {
-            var redisConfig = configuration.GetSection("Redis").Get<RedisConfiguration>();
+            // Build the intermediate service provider
+            var sp = services.BuildServiceProvider();
+            using (var scope = sp.CreateScope())
+            {
+                var _redisSettings = scope.ServiceProvider.GetRequiredService<IRedisSettingsProvider>();
+                var _redisConfig = _redisSettings.GetRedisConfiguration();
+                _redisConfig.ConnectTimeout = 5000; // 5 seconds
+                _redisConfig.ConnectRetry = 3; // 3 times
+                _redisConfig.AbortOnConnectFail = false; // do not abort
+                _redisConfig.CertificateValidation += (sender, certificate, chain, sslPolicyErrors) => true; // ignore certificate errors
 
-            redisConfig.ConnectTimeout = 5000; // 5 seconds
-            redisConfig.ConnectRetry = 3; // 3 times
-            redisConfig.AbortOnConnectFail = false; // do not abort
-            redisConfig.CertificateValidation += (sender, certificate, chain, sslPolicyErrors) => true; // ignore certificate errors
-            
-            services.AddStackExchangeRedisExtensions<NewtonsoftSerializer>(redisConfig);
+                services.AddStackExchangeRedisExtensions<NewtonsoftSerializer>(_redisConfig);
+            }
         }
 
         public static void AddApiVersioningExtension(this IServiceCollection services)
@@ -97,6 +102,7 @@ namespace CleanArchitecture.Aggregation.WebApi.Extensions
         public static void AddEnvironmentVariablesExtension(this IServiceCollection services)
         {
             services.AddTransient<IDatabaseSettingsProvider, DatabaseSettingsProvider>();
+            services.AddTransient<IRedisSettingsProvider, RedisSettingsProvider>();
         }
     }
 }

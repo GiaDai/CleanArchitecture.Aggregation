@@ -45,5 +45,12 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories
             await _dbContext.SaveChangesAsync();
             return 1;
         }
+
+        public async Task<IEnumerable<Product>> SearchByNameAsync(string name)
+        {
+            return await _products
+                .Where(p => p.Name.Contains(name))
+                .ToListAsync();
+        }
     }
 }

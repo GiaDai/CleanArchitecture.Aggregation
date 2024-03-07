@@ -5,7 +5,7 @@ using CleanArchitecture.Aggregation.Application.Features.Products.Commands.Delet
 using CleanArchitecture.Aggregation.Application.Features.Products.Commands.UpdateProduct;
 using CleanArchitecture.Aggregation.Application.Features.Products.Queries.GetAllProducts;
 using CleanArchitecture.Aggregation.Application.Features.Products.Queries.GetProductById;
-using CleanArchitecture.Aggregation.Domain.Entities;
+using CleanArchitecture.Aggregation.Application.Features.Products.Queries.SearchProductByName;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +16,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Text;
-using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -148,6 +147,11 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers.v1
 
         }
 
-
+        // GET search product by name api/<controller>/search?name=abc
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchProductByName([FromQuery] string name)
+        {
+            return Ok(await Mediator.Send(new SearchProductByNameQuery { SearchKey = name }));
+        }
     }
 }

@@ -18,5 +18,8 @@ namespace CleanArchitecture.Aggregation.Application.Interfaces.Repositories
 
         // Delete all products
         Task<int> DeleteAllAsync();
+
+        // Search products by name
+        Task<IEnumerable<Product>> SearchByNameAsync(string name);
     }
 }
