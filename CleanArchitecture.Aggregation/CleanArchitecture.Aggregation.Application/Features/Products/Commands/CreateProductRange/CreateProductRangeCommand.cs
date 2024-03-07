@@ -41,15 +41,10 @@ namespace CleanArchitecture.Aggregation.Application.Features.Products.Commands.C
         public async Task<Response<int>> Handle(CreateProductRangeCommand request, CancellationToken cancellationToken)
         {
             var products = _mapper.Map<List<Product>>(request.Products);
-            var exitingProduct = await _productRepository.AddRangeAsync(products);
-            var newProducts = products.Where(p => !exitingProduct.Any(ep => ep.Barcode == p.Barcode)).ToList();
-            if (newProducts.Count > 0)
-            {
-                Console.WriteLine(JsonConvert.SerializeObject(newProducts));
-                await _productRedisCache.AddRangeAsync(newProducts, TimeSpan.FromDays(1));
-                await _productElastic.AddRangeAsync(newProducts, "product");
-            }
-            return new Response<int>(newProducts.Count);
+            var addedProduct = await _productRepository.AddRangeAsync(products);
+            await _productRedisCache.AddRangeAsync(addedProduct, TimeSpan.FromDays(1));
+            await _productElastic.AddRangeAsync(addedProduct, "product");
+            return new Response<int>(addedProduct.Count);
         }
     }
 }

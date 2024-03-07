@@ -41,7 +41,7 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories
                 .Where(p => barcodes.Contains(p.Barcode))
                 .ToListAsync();
             // remove existingProducts from products
-            var newProducts = products.Where(p => !existingProducts.Any(ep => ep.Barcode == p.Barcode));
+            var newProducts = products.Where(p => !existingProducts.Any(ep => ep.Barcode == p.Barcode)).ToList();
 
             // add products to database
             if(newProducts.Count() > 0)
@@ -53,7 +53,7 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories
             // select barcode from existing products and save to new list string
             Console.WriteLine("Existing products: " + existingProducts.Count());
             Console.WriteLine("New products: " + newProducts.Count());
-            return existingProducts;
+            return newProducts;
         }
 
         public async Task<int> DeleteAllAsync()
