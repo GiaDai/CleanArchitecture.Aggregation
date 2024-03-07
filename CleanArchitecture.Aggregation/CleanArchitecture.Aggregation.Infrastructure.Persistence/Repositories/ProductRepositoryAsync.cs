@@ -46,8 +46,19 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories
             // add products to database
             if(newProducts.Count() > 0)
             {
-                await _dbContext.Products.AddRangeAsync(newProducts);
-                await _dbContext.SaveChangesAsync();
+                using(var transaction = _dbContext.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        await _dbContext.Products.AddRangeAsync(newProducts);
+                        await _dbContext.SaveChangesAsync();
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                    }
+                }
             }
             
             // select barcode from existing products and save to new list string
