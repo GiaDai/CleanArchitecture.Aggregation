@@ -3,6 +3,7 @@ using CleanArchitecture.Aggregation.Domain.Entities;
 using CleanArchitecture.Aggregation.Infrastructure.Persistence.Contexts;
 using CleanArchitecture.Aggregation.Infrastructure.Persistence.Repository;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,11 +32,28 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories
                 .AverageAsync(p => p.Rate);
         }
 
-        public async Task<int> AddRangeAsync(IEnumerable<Product> products)
+        public async Task<List<Product>> AddRangeAsync(IEnumerable<Product> products)
         {
-            await _dbContext.Products.AddRangeAsync(products);
-            await _dbContext.SaveChangesAsync();
-            return products.Count();
+            // select barcode from products and save to new list string
+            var barcodes = products.Select(p => p.Barcode).ToList();
+            // select products from database where barcode in barcodes
+            var existingProducts = await _products
+                .Where(p => barcodes.Contains(p.Barcode))
+                .ToListAsync();
+            // remove existingProducts from products
+            var newProducts = products.Where(p => !existingProducts.Any(ep => ep.Barcode == p.Barcode));
+
+            // add products to database
+            if(newProducts.Count() > 0)
+            {
+                await _dbContext.Products.AddRangeAsync(newProducts);
+                await _dbContext.SaveChangesAsync();
+            }
+            
+            // select barcode from existing products and save to new list string
+            Console.WriteLine("Existing products: " + existingProducts.Count());
+            Console.WriteLine("New products: " + newProducts.Count());
+            return existingProducts;
         }
 
         public async Task<int> DeleteAllAsync()

@@ -1,6 +1,8 @@
 ﻿using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.RedisCache;
+using CleanArchitecture.Aggregation.Domain.Entities;
 using StackExchange.Redis.Extensions.Core.Abstractions;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories.RedisCache
@@ -24,7 +26,7 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories.
             return !await _redisDatabase.ExistsAsync(barcode);
         }
 
-        public async Task<bool> AddAsync(string key, object value, TimeSpan expiry)
+        public async Task<bool> AddAsync(string key, Product value, TimeSpan expiry)
         {
             return await _redisDatabase.AddAsync($"{_prefix}{key}", value, expiry);
         }
@@ -41,6 +43,14 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories.
             foreach (var key in productsKey)
             {
                 await _redisDatabase.RemoveAsync(key);
+            }
+        }
+
+        public async Task AddRangeAsync(List<Product> value, TimeSpan expiry)
+        {
+            foreach (var product in value)
+            {
+                await _redisDatabase.AddAsync($"{_prefix}{product.Barcode}", product, expiry);
             }
         }
     }

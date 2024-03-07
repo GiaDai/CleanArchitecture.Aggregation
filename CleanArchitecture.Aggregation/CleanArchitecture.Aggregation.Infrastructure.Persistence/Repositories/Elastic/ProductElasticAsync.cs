@@ -61,5 +61,10 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories.
 
             return null;
         }
+
+        public async Task AddRangeAsync<T>(List<T> products, string indexName) where T : class
+        {
+            await _client.BulkAsync(b => b.Index(indexName).IndexMany(products));
+        }
     }
 }

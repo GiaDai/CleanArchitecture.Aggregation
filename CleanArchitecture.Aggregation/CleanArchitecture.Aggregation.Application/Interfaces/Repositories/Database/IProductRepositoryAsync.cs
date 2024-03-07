@@ -9,7 +9,7 @@ namespace CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Data
     public interface IProductRepositoryAsync : IGenericRepositoryAsync<Product>
     {
         // Add a range of products
-        Task<int> AddRangeAsync(IEnumerable<Product> products);
+        Task<List<Product>> AddRangeAsync(IEnumerable<Product> products);
         // Check if the barcode is unique
         Task<bool> IsUniqueBarcodeAsync(string barcode);
 

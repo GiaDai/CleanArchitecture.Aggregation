@@ -126,13 +126,14 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers.v1
                     {
                         // If the object is invalid, return the validation errors
                         productNotValid.Add(jsonObject);
+                    }else
+                    {
+                        productValid.Add(product);
                     }
-
-                    productValid.Add(product);
                 }
 
-                await Mediator.Send(new CreateProductRangeCommand { Products = productValid });
-                return Ok(new { Success = productValid.Count , InvalidProducts = productNotValid });
+                var result = await Mediator.Send(new CreateProductRangeCommand { Products = productValid });
+                return Ok(new { Success = result.Data , InvalidProducts = productNotValid });
             }
             catch (Exception ex)
             {

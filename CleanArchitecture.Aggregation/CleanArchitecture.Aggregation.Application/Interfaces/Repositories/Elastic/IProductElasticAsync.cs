@@ -10,6 +10,8 @@ namespace CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Elas
     {
         // Add new product to elastic
         Task<bool> AddProductAsync<T>(T product, string indexName) where T : class;
+        // Add range of products to elastic
+        Task AddRangeAsync<T>(List<T> products, string indexName) where T : class;
 
         // Remove product from elastic
         Task<bool> RemoveProductAsync(string id, string indexName);
