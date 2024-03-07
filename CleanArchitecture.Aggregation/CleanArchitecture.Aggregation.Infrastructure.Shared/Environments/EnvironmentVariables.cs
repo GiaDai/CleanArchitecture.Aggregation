@@ -25,5 +25,14 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Shared.Environments
         public static bool HasRedisPassword() => !string.IsNullOrEmpty(Environment.GetEnvironmentVariable(RedisPassword));
 
         #endregion
+
+        #region ElasticSearch
+
+        public const string ElasticCloudId = "ELASTIC_CLOUD_ID";
+        public static bool HasElasticCloudId() => !string.IsNullOrEmpty(Environment.GetEnvironmentVariable(ElasticCloudId));
+        public const string ElasticApiKey = "ELASTIC_API_KEY";
+        public static bool HasElasticApiKey() => !string.IsNullOrEmpty(Environment.GetEnvironmentVariable(ElasticApiKey));
+
+        #endregion
     }
 }

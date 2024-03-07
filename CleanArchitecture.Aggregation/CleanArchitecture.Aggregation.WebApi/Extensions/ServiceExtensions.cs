@@ -1,16 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CleanArchitecture.Aggregation.Infrastructure.Shared.Environments;
+using Elastic.Clients.Elasticsearch;
+using Elastic.Transport;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using StackExchange.Redis.Extensions.Core.Configuration;
 using StackExchange.Redis.Extensions.Newtonsoft;
 using System;
 using System.Collections.Generic;
-using Elastic.Clients.Elasticsearch;
-using Elastic.Transport;
-using System.Reflection;
 using System.IO;
-using CleanArchitecture.Aggregation.Infrastructure.Shared.Environments;
+using System.Reflection;
 
 namespace CleanArchitecture.Aggregation.WebApi.Extensions
 {
@@ -18,10 +17,16 @@ namespace CleanArchitecture.Aggregation.WebApi.Extensions
     {
         public static void AddElasicSearchExtension(this IServiceCollection services, IConfiguration _config)
         {
-            var cloudId = _config["Elastic:CloudId"];
-            var apiKey = _config["Elastic:ApiKey"];
-            var client = new ElasticsearchClient(cloudId, new ApiKey(apiKey));
-            services.AddSingleton(client);
+            // Build the intermediate service provider
+            var sp = services.BuildServiceProvider();
+            using (var scope = sp.CreateScope())
+            {
+                var _elasticSettings = scope.ServiceProvider.GetRequiredService<IElasticSettingsProvider>();
+                var cloudId = _elasticSettings.GetCloudId();
+                var apiKey = _elasticSettings.GetApiKey();
+                var client = new ElasticsearchClient(cloudId, new ApiKey(apiKey));
+                services.AddSingleton(client);
+            }
         }
         public static void AddSwaggerExtension(this IServiceCollection services)
         {
@@ -103,6 +108,7 @@ namespace CleanArchitecture.Aggregation.WebApi.Extensions
         {
             services.AddTransient<IDatabaseSettingsProvider, DatabaseSettingsProvider>();
             services.AddTransient<IRedisSettingsProvider, RedisSettingsProvider>();
+            services.AddTransient<IElasticSettingsProvider, ElasticSettingsProvider>();
         }
     }
 }
