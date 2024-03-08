@@ -1,5 +1,19 @@
 {
-  "name": "my-awesome-package",
-  "version": "1.0.0",
-  "author": "Your Name <email@example.com>"
-}
+    "name": "my_package",
+    "description": "",
+    "version": "1.0.0",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/GiaDai/CleanArchitecture.Aggregation.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": ""
+    },
+    "homepage": ""
+  }
