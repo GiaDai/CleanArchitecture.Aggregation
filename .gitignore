@@ -27,4 +27,7 @@
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Test/bin
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Test/obj
 
-/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Spa
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApp/bin
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApp/obj
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApp/ClientsApp/node_modules
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApp/ClientsApp/package-lock.json
