@@ -1,1 +1,1 @@
-web cd $HOME/heroku_output && ./CleanArchitecture.Aggregation.WebApi
+web cd $HOME/heroku_output && ./CleanArchitecture.Aggregation.WebApp
