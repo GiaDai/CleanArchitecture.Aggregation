@@ -1,9 +1,36 @@
-import React, { Component } from 'react';
+import React, { useEffect,useState } from 'react';
+import * as signalR from "@microsoft/signalr";
 
-export class Home extends Component {
-  static displayName = Home.name;
+const Home = () => {
+    const[connection, setConnection] = useState(null)
+    useEffect(() => {
+        document.title = "Home - Clean Architecture";
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/hub",{
+              skipNegotiation: true,
+              transport: signalR.HttpTransportType.WebSockets,
+            })
+            .configureLogging(signalR.LogLevel.Information)
+            .withAutomaticReconnect()
+            .build();
+        setConnection(connection);
+    }, []);
 
-  render() {
+    useEffect(() => {
+
+        if(connection){
+            console.log('Connection started');
+            connection.start()
+            .then(result => {
+                console.log('Connected!');
+                connection.on('messageReceived', message => {
+                    console.log(message);
+                });
+            })
+            .catch(e => console.log('Connection failed: ', e));
+        }
+    }
+    , [connection]);
     return (
       <div>
         <h1>Hello, world!</h1>
@@ -22,5 +49,6 @@ export class Home extends Component {
         <p>The <code>ClientApp</code> subdirectory is a standard React application based on the <code>create-react-app</code> template. If you open a command prompt in that directory, you can run <code>npm</code> commands such as <code>npm test</code> or <code>npm install</code>.</p>
       </div>
     );
-  }
 }
+
+export default Home;
