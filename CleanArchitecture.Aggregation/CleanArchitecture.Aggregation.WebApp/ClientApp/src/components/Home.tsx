@@ -2,7 +2,7 @@ import React, { useEffect,useState } from 'react';
 import * as signalR from "@microsoft/signalr";
 
 const Home = () => {
-    const[connection, setConnection] = useState(null)
+    const[connection, setConnection] = useState<any>(null)
     useEffect(() => {
         document.title = "Home - Clean Architecture";
         const connection = new signalR.HubConnectionBuilder()
@@ -18,17 +18,17 @@ const Home = () => {
 
     useEffect(() => {
 
-        if(connection){
-            console.log('Connection started');
-            connection.start()
-            .then(result => {
-                console.log('Connected!');
-                connection.on('messageReceived', message => {
-                    console.log(message);
-                });
-            })
-            .catch(e => console.log('Connection failed: ', e));
-        }
+      if(connection){
+        console.log('Connection started');
+        connection.start()
+        .then((result: void) => { // Explicitly specify the type of 'result' as 'void'
+          console.log('Connected!');
+          connection.on('messageReceived', (message: any) => { // Explicitly specify the type of 'message' as 'any'
+            console.log(message);
+          });
+        })
+        .catch((e: any) => console.log('Connection failed: ', e)); // Explicitly specify the type of 'e' as 'any'
+      }
     }
     , [connection]);
     return (
@@ -51,4 +51,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export { Home };
