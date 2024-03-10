@@ -1,13 +1,38 @@
 using CleanArchitecture.Aggregation.WebApp;
+using CleanArchitecture.Aggregation.Application;
+using CleanArchitecture.Aggregation.Application.Interfaces;
+using CleanArchitecture.Aggregation.Infrastructure.Identity;
+using CleanArchitecture.Aggregation.Infrastructure.Persistence;
+using CleanArchitecture.Aggregation.Infrastructure.Shared;
+using CleanArchitecture.Aggregation.WebApp.Extensions;
+using CleanArchitecture.Aggregation.Application.Mappings;
+using CleanArchitecture.Aggregation.WebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var services = builder.Services;
+var _config = builder.Configuration;
+var _env = builder.Environment;
 // Add services to the container.
+services.AddEnvironmentVariablesExtension();
+services.AddDependencyInjectionExtension();
+services.AddApplicationLayer();
+services.AddNpgSqlIdentityInfrastructure(_config, _env);
+services.AddNpgSqlPersistenceInfrastructure(_config, _env.IsProduction());
+services.AddSharedInfrastructure(_config);
+services.AddAutoMapper(typeof(GeneralProfile));
+services.AddRedisCacheExtension(_config);
+services.AddElasicSearchExtension(_config);
+services.AddSwaggerExtension();
+//services.AddHostedService<RedisConnectionMonitor>();
+//services.AddControllers().AddNewtonsoftJson(o => o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+services.AddApiVersioningExtension();
+services.AddHealthChecks();
+services.AddScoped<IAuthenticatedUserService, AuthenticatedUserService>();
 
-builder.Services.AddControllersWithViews();
+services.AddControllersWithViews();
 
 // config signalR
-builder.Services.AddSignalR();
+services.AddSignalR();
 
 var app = builder.Build();
 
@@ -21,6 +46,10 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseSwaggerExtension();
+app.UseHealthChecks("/health");
 
 app.UseCors(builder =>
         builder.AllowAnyMethod()

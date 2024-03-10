@@ -31,3 +31,4 @@
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApp/obj
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApp/ClientsApp/node_modules
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApp/ClientsApp/package-lock.json
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApp/appsettings.Development.json
