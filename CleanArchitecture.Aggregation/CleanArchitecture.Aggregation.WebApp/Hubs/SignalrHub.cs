@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 
-namespace CleanArchitecture.Aggregation.WebApp
+namespace CleanArchitecture.Aggregation.WebApp.Hubs
 {
     public class SignalrHub : Hub
     {

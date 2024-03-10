@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CleanArchitecture.Aggregation.WebApp.Hubs;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 
 namespace CleanArchitecture.Aggregation.WebApp.Controllers;
