@@ -3,12 +3,14 @@ import { Route, Routes } from 'react-router-dom';
 import AppRoutes from './AppRoutes';
 import { Layout } from './components/Layout';
 import './custom.css';
+import TodoProvider from './context/todoContext';
 
 export default class App extends Component {
   static displayName = App.name;
 
   render() {
     return (
+      <TodoProvider>
       <Layout>
         <Routes>
           {AppRoutes.map((route, index) => {
@@ -17,6 +19,7 @@ export default class App extends Component {
           })}
         </Routes>
       </Layout>
+      </TodoProvider>
     );
   }
 }
