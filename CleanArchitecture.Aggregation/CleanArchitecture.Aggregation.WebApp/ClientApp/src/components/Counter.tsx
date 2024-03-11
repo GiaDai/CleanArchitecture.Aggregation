@@ -34,10 +34,7 @@ const Counter = () => {
 
             <p aria-live="polite">Current count: <strong>{currentCount}</strong></p>
             <p>Number of products is {products.length}</p>
-            {
-                isLoading && <p>Loading...</p>
-            }
-            <button className="btn btn-primary" disabled={!isLoading} onClick={incrementCounter}>Increment</button>
+            <button className="btn btn-primary" disabled={isLoading} onClick={incrementCounter}>{isLoading ? 'Processing' : 'Increment'}</button>
 
             <DisplayProducts products={products} removeProduct={removeProduct} />
         </div>
