@@ -9,6 +9,7 @@ export interface IProduct {
 export type ProductContextType = {
     products: IProduct[];
     addProduct: (product: IProduct) => void;
+    addRangeProducts: (products: IProduct[]) => void;
     saveProduct: (product: IProduct) => void;
     updateProduct: (id: number) => void;
     removeProduct: (id: number) => void;
@@ -19,6 +20,7 @@ export type ProductContextType = {
 export const productContextDefaultValue: ProductContextType = {
     products: [],
     addProduct: (product: IProduct) => {},
+    addRangeProducts: (products: IProduct[]) => {},
     saveProduct: (product: IProduct) => {},
     updateProduct: (id: number) => {},
     removeProduct: (id: number) => {},

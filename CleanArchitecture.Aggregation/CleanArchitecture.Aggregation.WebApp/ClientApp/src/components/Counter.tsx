@@ -3,7 +3,7 @@ import { ProductContextType, IProduct } from '../@types/product';
 import { ProductContext } from '../context/productContext';
 import { faker} from '@faker-js/faker';
 const Counter = () => {
-    const { products, addProduct, removeProduct, fetchProducts, updateProduct, isLoading } = React.useContext(ProductContext) as ProductContextType;
+    const { products, addProduct, removeProduct, fetchProducts, updateProduct, addRangeProducts, isLoading } = React.useContext(ProductContext) as ProductContextType;
     const [currentCount, setCurrentCount] = useState<number>(0);
     const incrementCounter = () => {
         var product = gerneateProduct();
@@ -22,6 +22,15 @@ const Counter = () => {
         return product;
     }
 
+    // generate 100 products
+    const generateProducts = () => {
+        var products: IProduct[] = [];
+        for (let i = 0; i < 999; i++) {
+            products.push(gerneateProduct());
+        }
+        return products;
+    }
+
     React.useEffect(() => {
         fetchProducts();
     }, [fetchProducts]);
@@ -35,6 +44,7 @@ const Counter = () => {
             <p aria-live="polite">Current count: <strong>{currentCount}</strong></p>
             <p>Number of products is {products.length}</p>
             <button className="btn btn-primary" disabled={isLoading} onClick={incrementCounter}>{isLoading ? 'Processing' : 'Increment'}</button>
+            <button className="btn btn-success" disabled={isLoading} onClick={() => addRangeProducts(generateProducts())}>{isLoading ? 'Processing' : 'Bulk insert'}</button>
             <DisplayProducts products={products} removeProduct={removeProduct} updateProduct={updateProduct}/>
         </div>
     );

@@ -38,10 +38,6 @@ const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ children }) 
     setProducts(updatedProducts);
   };
 
-//   const updateProduct = (barcode: string) => {
-//     const updatedProducts = products.map((p) => (p.barcode === barcode ? { ...p, rate: p.rate + 1 } : p));
-//     setProducts(updatedProducts);
-//   };
 const gerneateProduct = () => {
     const product: IProduct = {
         id:0,
@@ -116,9 +112,34 @@ const gerneateProduct = () => {
         });
   }, [setProducts, setIsLoading]);
 
+  const addRangeProducts = React.useCallback((products: IProduct[]) => {
+    setIsLoading(true);
+    fetch('/api/v1/product/addrange', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({products: products}),
+    })
+        .then((response) => response.json())
+        .then((json) => {
+            setProducts([...products, ...products]);
+            setIsLoading(false);
+        })
+        .catch((error) => {
+            console.error('Error adding products', error);
+            setIsLoading(false);
+        })
+        .finally(() => {
+            setIsLoading(false);
+        });
+    }
+    , [products, setProducts, setIsLoading]);
+
   const productContextValue: ProductContextType = {
     products,
     addProduct,
+    addRangeProducts,
     saveProduct,
     updateProduct,
     removeProduct,
