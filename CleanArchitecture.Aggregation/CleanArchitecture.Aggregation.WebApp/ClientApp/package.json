@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@microsoft/signalr": "^8.0.0",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.25",

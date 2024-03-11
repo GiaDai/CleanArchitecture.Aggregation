@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TodoContextType, ITodo, TodoAction } from '../@types/todo';
+import { ITodo, TodoAction } from '../@types/todo';
 import { todoReducer } from '../reducers/todoReducer';
 
 

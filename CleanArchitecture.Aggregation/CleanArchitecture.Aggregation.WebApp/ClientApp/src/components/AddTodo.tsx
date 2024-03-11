@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TodoContextType, ITodo } from '../@types/todo';
+import { ITodo } from '../@types/todo';
 import { TodoContext } from '../context/todoContext';
 
 const AddTodo: React.FC = () => {
