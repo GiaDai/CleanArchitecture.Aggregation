@@ -1,0 +1,20 @@
+config:
+  target: https://netcore-github-5769087d25de.herokuapp.com
+  phases:
+    - duration: 20
+      arrivalRate: 5
+      name: Startup phase
+plugins:
+  # ensure: {}
+  ensure:
+      thresholds:
+        - http.response_time.max: 1000
+      conditions:
+        - expression: "http.codes.200 == http.requests"
+scenarios:
+  - flow:
+    - get:
+        url: "/api/v1/product"
+# https://blog.appsignal.com/2021/11/10/a-guide-to-load-testing-nodejs-apis-with-artillery.html
+# we create a test phase that creates 5 users for each second for 20 seconds to create a total of 100 virtual users
+# artillery run test_products_paging.yml
