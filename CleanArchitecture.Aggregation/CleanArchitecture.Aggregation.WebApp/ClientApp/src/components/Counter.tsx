@@ -3,7 +3,7 @@ import { ProductContextType, IProduct } from '../@types/product';
 import { ProductContext } from '../context/productContext';
 import { faker} from '@faker-js/faker';
 const Counter = () => {
-    const { products, addProduct, removeProduct, fetchProducts } = React.useContext(ProductContext) as ProductContextType;
+    const { products, addProduct, removeProduct, fetchProducts, isLoading } = React.useContext(ProductContext) as ProductContextType;
     const [currentCount, setCurrentCount] = useState<number>(0);
     const incrementCounter = () => {
         var product = gerneateProduct();
@@ -13,9 +13,10 @@ const Counter = () => {
 
     const gerneateProduct = () => {
         const product: IProduct = {
-            rate: faker.number.int() ,
+            id:0,
+            rate: faker.number.int({ min: 99, max: 999}) ,
             name: faker.person.firstName() + ' ' + faker.person.lastName(),
-            barcode: faker.string.uuid(),
+            barcode: faker.internet.ipv4(),
             description: faker.lorem.paragraph()
         };
         return product;
@@ -33,7 +34,10 @@ const Counter = () => {
 
             <p aria-live="polite">Current count: <strong>{currentCount}</strong></p>
             <p>Number of products is {products.length}</p>
-            <button className="btn btn-primary" onClick={incrementCounter}>Increment</button>
+            {
+                isLoading && <p>Loading...</p>
+            }
+            <button className="btn btn-primary" disabled={!isLoading} onClick={incrementCounter}>Increment</button>
 
             <DisplayProducts products={products} removeProduct={removeProduct} />
         </div>
@@ -65,7 +69,7 @@ const DisplayProducts = React.memo((props: any) => {
                     <div>
                         <h3>{product.name}</h3>
                         <p>{product.description}</p>
-                        <button className='btn btn-warning' onClick={() => removeProduct(product.barcode)}>Remove</button>
+                        <button className='btn btn-warning' onClick={() => removeProduct(product.id)}>Remove</button>
                     </div>
                 );
             })}

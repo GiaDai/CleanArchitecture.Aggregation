@@ -7,10 +7,6 @@ const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ children }) 
   const [products, setProducts] = React.useState<IProduct[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-//   const addProduct = (product: IProduct) => {
-//     setProducts([...products, product]);
-//   };
-
     const addProduct = React.useCallback((product: IProduct) => {
         setIsLoading(true);
         fetch('/api/v1/product', {
@@ -45,10 +41,30 @@ const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ children }) 
     setProducts(updatedProducts);
   };
 
-  const removeProduct = (barcode: string) => {
-    const updatedProducts = products.filter((p) => p.barcode !== barcode);
-    setProducts(updatedProducts);
-  }
+//   const removeProduct = (barcode: string) => {
+//     const updatedProducts = products.filter((p) => p.barcode !== barcode);
+//     setProducts(updatedProducts);
+//   }
+
+  const removeProduct = React.useCallback((id: number) => {
+    setIsLoading(true);
+    fetch(`/api/v1/product/${id}`, {
+        method: 'DELETE',
+    })
+        .then((response) => response.json())
+        .then((json) => {
+            const updatedProducts = products.filter((p) => p.id !== id);
+            setProducts(updatedProducts);
+            setIsLoading(false);
+        })
+        .catch((error) => {
+            console.error('Error removing product', error);
+            setIsLoading(false);
+        })
+        .finally(() => {
+            setIsLoading(false);
+        });
+  }, [products, setProducts, setIsLoading]);
 
   const fetchProducts = React.useCallback(() => {
     setIsLoading(true);

@@ -1,4 +1,5 @@
 export interface IProduct {
+    id: number;
     rate: number;
     name: string;
     description: string;
@@ -10,7 +11,7 @@ export type ProductContextType = {
     addProduct: (product: IProduct) => void;
     saveProduct: (product: IProduct) => void;
     updateProduct: (barcode: string) => void;
-    removeProduct: (barcode: string) => void;
+    removeProduct: (id: number) => void;
     fetchProducts: () => void;
     isLoading: boolean;
 };
@@ -20,7 +21,7 @@ export const productContextDefaultValue: ProductContextType = {
     addProduct: (product: IProduct) => {},
     saveProduct: (product: IProduct) => {},
     updateProduct: (barcode: string) => {},
-    removeProduct: (barcode: string) => {},
+    removeProduct: (id: number) => {},
     fetchProducts: () => {},
     isLoading: false,
 };
