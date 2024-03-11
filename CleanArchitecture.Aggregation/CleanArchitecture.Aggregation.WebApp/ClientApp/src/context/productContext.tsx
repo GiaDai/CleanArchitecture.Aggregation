@@ -136,6 +136,24 @@ const gerneateProduct = () => {
     }
     , [products, setProducts, setIsLoading]);
 
+    const searchProducts = React.useCallback((search: string) => {
+        setIsLoading(true);
+        fetch(`/api/v1/product/search/?name=${search}`)
+            .then((response) => response.json())
+            .then((json) => {
+                setProducts(json.data);
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                console.error('Error searching products', error);
+                setIsLoading(false);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
+    }
+    , [products, setProducts, setIsLoading]);
+
   const productContextValue: ProductContextType = {
     products,
     addProduct,
@@ -144,6 +162,7 @@ const gerneateProduct = () => {
     updateProduct,
     removeProduct,
     fetchProducts,
+    searchProducts,
     isLoading: isLoading,
   };
 

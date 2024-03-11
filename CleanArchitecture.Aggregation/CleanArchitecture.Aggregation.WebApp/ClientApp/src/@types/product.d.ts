@@ -14,6 +14,7 @@ export type ProductContextType = {
     updateProduct: (id: number) => void;
     removeProduct: (id: number) => void;
     fetchProducts: () => void;
+    searchProducts: (search: string) => void;
     isLoading: boolean;
 };
 
@@ -25,5 +26,6 @@ export const productContextDefaultValue: ProductContextType = {
     updateProduct: (id: number) => {},
     removeProduct: (id: number) => {},
     fetchProducts: () => {},
+    searchProducts: (search: string) => {},
     isLoading: false,
 };
