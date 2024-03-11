@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { IProduct, ProductContextType, productContextDefaultValue } from '../@types/product';
+import { faker } from '@faker-js/faker';
+import { IProduct, ProductContextType } from '../@types/product';
 
 export const ProductContext = React.createContext<ProductContextType | null>(null);
 
@@ -18,7 +19,8 @@ const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ children }) 
         })
             .then((response) => response.json())
             .then((json) => {
-                setProducts([...products, json.data]);
+                product.id = json.data;
+                setProducts([...products, product]);
                 setIsLoading(false);
             })
             .catch((error) => {
@@ -36,15 +38,46 @@ const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ children }) 
     setProducts(updatedProducts);
   };
 
-  const updateProduct = (barcode: string) => {
-    const updatedProducts = products.map((p) => (p.barcode === barcode ? { ...p, rate: p.rate + 1 } : p));
-    setProducts(updatedProducts);
-  };
-
-//   const removeProduct = (barcode: string) => {
-//     const updatedProducts = products.filter((p) => p.barcode !== barcode);
+//   const updateProduct = (barcode: string) => {
+//     const updatedProducts = products.map((p) => (p.barcode === barcode ? { ...p, rate: p.rate + 1 } : p));
 //     setProducts(updatedProducts);
-//   }
+//   };
+const gerneateProduct = () => {
+    const product: IProduct = {
+        id:0,
+        rate: faker.number.int({ min: 99, max: 999}) ,
+        name: faker.person.firstName() + ' ' + faker.person.lastName(),
+        barcode: faker.internet.ipv4(),
+        description: faker.lorem.paragraph()
+    };
+    return product;
+}
+  const updateProduct = React.useCallback((id: number) => {
+    setIsLoading(true);
+    var product = gerneateProduct();
+    product.id = id;
+    fetch(`/api/v1/product/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(product),
+    })
+        .then((response) => response.json())
+        .then((json) => {
+            const updatedProducts = products.map((p) => (p.id === id ? { ...p, rate: product.rate, name: product.name, description: product.description, barcode: product.barcode } : p));
+            setProducts(updatedProducts);
+            setIsLoading(false);
+        })
+        .catch((error) => {
+            console.error('Error updating product', error);
+            setIsLoading(false);
+        })
+        .finally(() => {
+            setIsLoading(false);
+        });
+  }
+, [products, setProducts, setIsLoading]);
 
   const removeProduct = React.useCallback((id: number) => {
     setIsLoading(true);
@@ -90,7 +123,7 @@ const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ children }) 
     updateProduct,
     removeProduct,
     fetchProducts,
-    isLoading: false,
+    isLoading: isLoading,
   };
 
   return <ProductContext.Provider value={productContextValue}>{children}</ProductContext.Provider>;

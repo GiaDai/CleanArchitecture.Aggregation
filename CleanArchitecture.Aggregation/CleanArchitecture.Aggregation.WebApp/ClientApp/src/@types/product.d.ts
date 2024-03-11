@@ -10,7 +10,7 @@ export type ProductContextType = {
     products: IProduct[];
     addProduct: (product: IProduct) => void;
     saveProduct: (product: IProduct) => void;
-    updateProduct: (barcode: string) => void;
+    updateProduct: (id: number) => void;
     removeProduct: (id: number) => void;
     fetchProducts: () => void;
     isLoading: boolean;
@@ -20,7 +20,7 @@ export const productContextDefaultValue: ProductContextType = {
     products: [],
     addProduct: (product: IProduct) => {},
     saveProduct: (product: IProduct) => {},
-    updateProduct: (barcode: string) => {},
+    updateProduct: (id: number) => {},
     removeProduct: (id: number) => {},
     fetchProducts: () => {},
     isLoading: false,

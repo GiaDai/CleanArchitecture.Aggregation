@@ -3,7 +3,7 @@ import { ProductContextType, IProduct } from '../@types/product';
 import { ProductContext } from '../context/productContext';
 import { faker} from '@faker-js/faker';
 const Counter = () => {
-    const { products, addProduct, removeProduct, fetchProducts, isLoading } = React.useContext(ProductContext) as ProductContextType;
+    const { products, addProduct, removeProduct, fetchProducts, updateProduct, isLoading } = React.useContext(ProductContext) as ProductContextType;
     const [currentCount, setCurrentCount] = useState<number>(0);
     const incrementCounter = () => {
         var product = gerneateProduct();
@@ -35,8 +35,7 @@ const Counter = () => {
             <p aria-live="polite">Current count: <strong>{currentCount}</strong></p>
             <p>Number of products is {products.length}</p>
             <button className="btn btn-primary" disabled={isLoading} onClick={incrementCounter}>{isLoading ? 'Processing' : 'Increment'}</button>
-
-            <DisplayProducts products={products} removeProduct={removeProduct} />
+            <DisplayProducts products={products} removeProduct={removeProduct} updateProduct={updateProduct}/>
         </div>
     );
 }
@@ -57,7 +56,7 @@ const CounterTwo = React.memo(() => {
 });  
 
 const DisplayProducts = React.memo((props: any) => {
-    const { products, removeProduct } = props;
+    const { products, removeProduct, updateProduct } = props;
     console.log('DisplayProducts rendered');
     return (
         <div>
@@ -66,7 +65,8 @@ const DisplayProducts = React.memo((props: any) => {
                     <div>
                         <h3>{product.name}</h3>
                         <p>{product.description}</p>
-                        <button className='btn btn-warning' onClick={() => removeProduct(product.id)}>Remove</button>
+                        <button className='btn btn-danger' onClick={() => removeProduct(product.id)}>Remove</button>
+                        <button className='btn btn-primary' onClick={() => updateProduct(product.id)}>Update</button>
                     </div>
                 );
             })}
