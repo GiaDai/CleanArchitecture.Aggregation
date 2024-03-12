@@ -6,6 +6,15 @@ export interface IProduct {
     barcode: string;
 }
 
+export interface IProductPaging {
+    pageNumber: number;
+    pageSize: number;
+    success: boolean;
+    message: string;
+    errors: string[];
+    data: IProduct[];
+}
+
 export type ProductContextType = {
     products: IProduct[];
     addProduct: (product: IProduct) => void;

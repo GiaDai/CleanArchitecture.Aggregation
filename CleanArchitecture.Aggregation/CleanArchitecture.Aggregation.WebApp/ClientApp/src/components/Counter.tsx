@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import { ProductContextType, IProduct } from '../@types/product';
 import { ProductContext } from '../context/productContext';
 import { faker} from '@faker-js/faker';
+import { useQuery } from '@tanstack/react-query';
+import { getProducts } from '../apis/product.api';
 const Counter = () => {
+    const { data, isError } = useQuery({
+        queryKey: ['products', 1, 20],
+        queryFn: () => getProducts(1, 20),
+    });
     const { products, addProduct, removeProduct, fetchProducts, updateProduct, addRangeProducts, isLoading } = React.useContext(ProductContext) as ProductContextType;
     const [currentCount, setCurrentCount] = useState<number>(0);
     const incrementCounter = () => {

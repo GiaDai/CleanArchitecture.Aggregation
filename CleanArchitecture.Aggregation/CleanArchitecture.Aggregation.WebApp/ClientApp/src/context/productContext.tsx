@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { faker } from '@faker-js/faker';
 import { IProduct, ProductContextType } from '../@types/product';
+import { getProducts } from '../apis/product.api';
 
 export const ProductContext = React.createContext<ProductContextType | null>(null);
 
@@ -97,10 +98,9 @@ const gerneateProduct = () => {
 
   const fetchProducts = React.useCallback(() => {
     setIsLoading(true);
-    fetch('/api/v1/product')
-        .then((response) => response.json())
-        .then((json) => {
-            setProducts(json.data);
+    getProducts(1, 10)
+        .then((response) => {
+            setProducts(response.data.data);
             setIsLoading(false);
         })
         .catch((error) => {
