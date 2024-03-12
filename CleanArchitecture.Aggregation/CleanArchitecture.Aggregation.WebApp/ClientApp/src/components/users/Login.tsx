@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContextType, ILogin } from '../../@types/user';
 import * as Yup from "yup"
 import { useFormik } from 'formik';
-import { Button, Container, Row, FormGroup, Label, Form, Input, FormText, Col } from "reactstrap";
+import { Button, Container, Row, FormGroup, Label, Form, Input, FormText, Col, Card, CardBody } from "reactstrap";
 
 // generate form with 2 input fields for username and password
 // use formik to handle form state and validation
@@ -41,43 +41,51 @@ const Login = () => {
     return (
         <Container>
             <Row>
-                <Col sm={{size:4, offset:'auto'}}>
-                <h1>Login</h1>
-                <Form onSubmit={formik.handleSubmit}>
-                    <FormGroup id='Email'>
-                        <Label>Email</Label>
-                        <Input
-                            id="email"
-                            name="email"
-                            type="text"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.email}
-                        />
-                        <FormText className='text-danger'>
-                            {formik.touched.email && formik.errors.email ? (
-                                <div className='text-danger'>{formik.errors.email}</div>
-                            ) : null}
-                        </FormText>
-                    </FormGroup>
-                    <FormGroup id='Password'>
-                        <Label>Password</Label>
-                        <Input
-                            id="password"
-                            name="password"
-                            type="password"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.password}
-                        />
-                        <FormText className='text-danger'>
-                            {formik.touched.password && formik.errors.password ? (
-                                <div className='text-danger'>{formik.errors.password}</div>
-                            ) : null}
-                        </FormText>
-                    </FormGroup>
-                    <Button type="submit">Submit</Button>
-                </Form>
+                <Col md={{
+                    offset: 3,
+                    size: 6
+                }}
+                    sm="12">
+                    <Card>
+                        <CardBody>
+                            <h1>Login</h1>
+                            <Form onSubmit={formik.handleSubmit}>
+                                <FormGroup id='Email'>
+                                    <Label>Email</Label>
+                                    <Input
+                                        id="email"
+                                        name="email"
+                                        type="text"
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                        value={formik.values.email}
+                                    />
+                                    <FormText className='text-danger'>
+                                        {formik.touched.email && formik.errors.email ? (
+                                            <div className='text-danger'>{formik.errors.email}</div>
+                                        ) : null}
+                                    </FormText>
+                                </FormGroup>
+                                <FormGroup id='Password'>
+                                    <Label>Password</Label>
+                                    <Input
+                                        id="password"
+                                        name="password"
+                                        type="password"
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                        value={formik.values.password}
+                                    />
+                                    <FormText className='text-danger'>
+                                        {formik.touched.password && formik.errors.password ? (
+                                            <div className='text-danger'>{formik.errors.password}</div>
+                                        ) : null}
+                                    </FormText>
+                                </FormGroup>
+                                <Button color='primary' type="submit">Login</Button>
+                            </Form>
+                        </CardBody>
+                    </Card>
                 </Col>
             </Row>
         </Container>
