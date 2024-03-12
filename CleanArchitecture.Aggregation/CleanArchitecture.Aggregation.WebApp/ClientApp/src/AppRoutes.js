@@ -1,8 +1,11 @@
-import { Route, Routes } from 'react-router-dom';
+import * as React from 'react';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 import { ProductList, ProductDetail, ProductAdd } from "./components/products"
+import { UserContext } from './context/userContext';
+import { Login } from './components/users';
 const AppRoutes = [
   {
     index: true,
@@ -15,6 +18,20 @@ const AppRoutes = [
   {
     path: '/fetch-data',
     element: <FetchData />
+  },
+  {
+    path: '/products',
+    element: <ProductList />,
+    children: [
+      {
+        path: 'add',
+        element: <ProductAdd />
+      },
+      {
+        path: ':id',
+        element: <ProductDetail />
+      }
+    ]
   }
 ];
 
@@ -36,11 +53,25 @@ export const Routing = () => {
     <Routes>
       <Route exact path='/' element={<Home/>} />
       <Route path='/counter' element={<Counter/>} />
-      <Route path='/fetch-data' element={<FetchData/>} />
-      <Route path='products' element={<ProductList/>}>
+      <Route path='/login' element={<Login/>} />
+      <Route path='/fetch-data' element={
+        <ProtectedRoutes>
+        <FetchData/>
+        </ProtectedRoutes>
+      } />
+      <Route path='/products'>
+        <Route index={true} element={<ProductList/>} />
         <Route path='add' element={<ProductAdd/>} />
-        {/* <Route path=':id' element={<ProductDetail/>} /> */}
+        <Route path=':id' element={<ProductDetail/>} />
       </Route>
     </Routes>
   );
+}
+
+const ProtectedRoutes = ({children}) => {
+  const { user } = React.useContext(UserContext);
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+  return children;
 }

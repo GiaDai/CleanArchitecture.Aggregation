@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { UserContextType } from '../@types/user'; 
+import { UserContext } from '../context/userContext';
 
 interface Forecast {
     date: string;
@@ -8,6 +10,7 @@ interface Forecast {
 };
 
 const FetchData = () => {
+    const { logout } = React.useContext(UserContext) as UserContextType;
     const [loading, setLoading] = useState<boolean>(true);
     const [forecasts, setForecasts] = useState<Forecast[]>([]);
 
@@ -25,7 +28,7 @@ const FetchData = () => {
 
     let contents = loading
         ? <p><em>Loading...</em></p>
-        : renderForecastsTable(forecasts);
+        : renderForecastsTable(forecasts, logout);
 
     return (
         <div>
@@ -36,8 +39,9 @@ const FetchData = () => {
     );
 }
 
-const renderForecastsTable = (forecasts: Forecast[]) => {
+const renderForecastsTable = (forecasts: Forecast[], logout: () =>  void ) => {
     return (
+        <div>
         <table className='table table-striped' aria-labelledby="tabelLabel">
             <thead>
                 <tr>
@@ -58,6 +62,8 @@ const renderForecastsTable = (forecasts: Forecast[]) => {
                 )}
             </tbody>
         </table>
+        <button className='btn btn-primary' onClick={() => { logout(); }}>Logout</button>
+        </div>
     );
 }
 

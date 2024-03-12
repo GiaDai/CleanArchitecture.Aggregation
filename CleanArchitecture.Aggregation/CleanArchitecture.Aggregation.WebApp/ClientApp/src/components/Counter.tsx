@@ -72,7 +72,7 @@ const DisplayProducts = React.memo((props: any) => {
         <div>
             {products.map((product: IProduct) => {
                 return (
-                    <div>
+                    <div key={product.barcode}>
                         <h3>{product.name}</h3>
                         <p>{product.description}</p>
                         <button className='btn btn-danger' onClick={() => removeProduct(product.id)}>Remove</button>
