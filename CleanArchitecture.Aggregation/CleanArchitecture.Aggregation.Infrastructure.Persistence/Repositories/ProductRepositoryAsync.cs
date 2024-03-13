@@ -1,4 +1,6 @@
-﻿using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Database;
+﻿using CleanArchitecture.Aggregation.Application.Filters;
+using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Database;
+using CleanArchitecture.Aggregation.Application.Wrappers;
 using CleanArchitecture.Aggregation.Domain.Entities;
 using CleanArchitecture.Aggregation.Infrastructure.Persistence.Contexts;
 using CleanArchitecture.Aggregation.Infrastructure.Persistence.Repository;
@@ -80,6 +82,12 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories
             return await _products
                 .Where(p => p.Name.Contains(name))
                 .ToListAsync();
+        }
+
+        public async Task<PagedList<Product>> GetPagedListAsync(RequestParameter parameter)
+        {
+            var products = _products.AsNoTracking();
+            return await PagedList<Product>.ToPagedList(products, parameter.PageNumber, parameter.PageSize);
         }
     }
 }

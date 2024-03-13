@@ -4,6 +4,7 @@ using CleanArchitecture.Aggregation.Application.Features.Products.Commands.Delet
 using CleanArchitecture.Aggregation.Application.Features.Products.Commands.DeleteProductById;
 using CleanArchitecture.Aggregation.Application.Features.Products.Commands.UpdateProduct;
 using CleanArchitecture.Aggregation.Application.Features.Products.Queries.GetAllProducts;
+using CleanArchitecture.Aggregation.Application.Features.Products.Queries.GetPagedProducts;
 using CleanArchitecture.Aggregation.Application.Features.Products.Queries.GetProductById;
 using CleanArchitecture.Aggregation.Application.Features.Products.Queries.SearchProductByName;
 using Microsoft.AspNetCore.Http;
@@ -148,6 +149,13 @@ namespace CleanArchitecture.Aggregation.WebApp.Controllers.v1
         public async Task<IActionResult> SearchProductByName([FromQuery] string name)
         {
             return Ok(await Mediator.Send(new SearchProductByNameQuery { SearchKey = name }));
+        }
+
+        // GET paged product api/<controller>/paged?PageNumber=1&PageSize=10&Search=abc
+        [HttpGet("paged")]
+        public async Task<IActionResult> GetPaged([FromQuery] GetPagedProductsQuery parameter)
+        {
+            return Ok(await Mediator.Send(new GetPagedProductsQuery { PageNumber = parameter.PageNumber, PageSize = parameter.PageSize, Search = parameter.Search }));
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using CleanArchitecture.Aggregation.Domain.Entities;
+﻿using CleanArchitecture.Aggregation.Application.Filters;
+using CleanArchitecture.Aggregation.Application.Wrappers;
+using CleanArchitecture.Aggregation.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,5 +23,8 @@ namespace CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Data
 
         // Search products by name
         Task<IEnumerable<Product>> SearchByNameAsync(string name);
+
+        // Get page list of products
+        Task<PagedList<Product>> GetPagedListAsync(RequestParameter parameter);
     }
 }
