@@ -1,11 +1,9 @@
-import React, { memo, useMemo } from 'react'
-import { useMatch } from 'react-router-dom';
+import React, { memo } from 'react'
 import { useMutation } from '@tanstack/react-query';
 import { postAddProduct } from '../../apis/product.api';
 import { IProduct } from '../../@types/product';
-import { da, faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker';
 import { Row, Col, Button } from 'reactstrap';
-import { isAxiosError } from '../../utils/utils';
 
 type ProductAddProps = Omit<IProduct, 'id'>;
 type FormError = {
@@ -22,12 +20,12 @@ const ProductAdd = memo(() => {
     }
   }
 
-  const errorForm: FormError = useMemo(() => {
-    if (isAxiosError<{ error: FormError }>(error) && error.response?.status === 400) {
-      return error.response.data.error;
-    }
-    return null;
-  }, [error]);
+  // const errorForm: FormError = useMemo(() => {
+  //   if (isAxiosError<{ error: FormError }>(error) && error.response?.status === 400) {
+  //     return error.response.data.error;
+  //   }
+  //   return null;
+  // }, [error]);
 
   // const addMatch = useMatch('/products/add');
   // if (!addMatch) return null;
