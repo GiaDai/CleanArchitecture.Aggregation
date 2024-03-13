@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
@@ -51,27 +51,35 @@ export const RenderRoutes = () => {
 export const Routing = () => {
   return (
     <Routes>
-      <Route exact path='/' element={<Home/>} />
-      <Route path='/counter' element={<Counter/>} />
+      {/* <ProtectedRoutes> */}
+        <Route exact path='/' element={<ProtectedRoutes><Home/></ProtectedRoutes>} />
+        <Route path='/counter' element={<Counter/>} />
+        <Route path='/fetch-data' element={<FetchData/>} />
+        <Route path='/products'>
+          <Route index={true} element={<ProductList/>} />
+          <Route path='add' element={<ProductAdd/>} />
+          <Route path=':id' element={<ProductDetail/>} />
+        </Route>
+      {/* </ProtectedRoutes> */}
       <Route path='/login' element={<Login/>} />
-      <Route path='/fetch-data' element={
-        <ProtectedRoutes>
-        <FetchData/>
-        </ProtectedRoutes>
-      } />
-      <Route path='/products'>
-        <Route index={true} element={<ProductList/>} />
-        <Route path='add' element={<ProductAdd/>} />
-        <Route path=':id' element={<ProductDetail/>} />
-      </Route>
+      <Route path="*" element={<NoMatch />} />
     </Routes>
+  );
+}
+
+const NoMatch = () => {
+  return (
+    <div>
+      <h1>404 - Not Found</h1>
+    </div>
   );
 }
 
 const ProtectedRoutes = ({children}) => {
   const { user } = React.useContext(UserContext);
+  const location = useLocation();
   if (!user) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" replace state={{ from: location }} />;
   }
   return children;
 }

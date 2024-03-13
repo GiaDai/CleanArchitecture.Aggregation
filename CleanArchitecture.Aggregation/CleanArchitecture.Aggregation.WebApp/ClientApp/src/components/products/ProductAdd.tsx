@@ -37,7 +37,6 @@ const ProductAdd = memo(() => {
       barcode: faker.internet.ipv4(),
       description: faker.lorem.paragraph()
     };
-    console.log(product);
     return product;
   }
 

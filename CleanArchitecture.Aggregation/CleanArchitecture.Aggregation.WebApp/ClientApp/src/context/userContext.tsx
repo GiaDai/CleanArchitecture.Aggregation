@@ -1,36 +1,22 @@
 import * as React from 'react';
 import { faker } from '@faker-js/faker';
-import { IUser, UserContextType, ILogin } from '../@types/user';
+import { IUserResponse, UserContextType, ILogin } from '../@types/user';
 
 export const UserContext = React.createContext<UserContextType | null>(null);
 
 const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = React.useState<IUser | null>(null);
+  const [userContext, setUserContext] = React.useState<IUserResponse | null>(null);
 
-  const login = (loginData : ILogin) => {
-    fetch('/api/v1/user/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(loginData),
-    })
-        .then((response) => response.json())
-        .then((json) => {
-            console.log(json.data);
-        })
-        .catch((error) => {
-            console.error('Error login', error);
-        });
-    setUser({id: faker.string.uuid() , userName: faker.person.bio() , email:faker.internet.email() });
+  const loginContext = (loginData : IUserResponse) => {
+    setUserContext(loginData);
   };
 
-    const logout = () => {
-        setUser(null);
+    const logoutContext = () => {
+        setUserContext(null);
     };
 
     return (
-        <UserContext.Provider value={{ user, login, logout }}>
+        <UserContext.Provider value={{ userContext, loginContext, logoutContext }}>
             {children}
         </UserContext.Provider>
     );

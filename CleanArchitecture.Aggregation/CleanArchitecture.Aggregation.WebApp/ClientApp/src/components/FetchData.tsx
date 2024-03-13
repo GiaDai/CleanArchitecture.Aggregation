@@ -10,7 +10,7 @@ interface Forecast {
 };
 
 const FetchData = () => {
-    const { logout } = React.useContext(UserContext) as UserContextType;
+    const { logoutContext } = React.useContext(UserContext) as UserContextType;
     const [loading, setLoading] = useState<boolean>(true);
     const [forecasts, setForecasts] = useState<Forecast[]>([]);
 
@@ -28,7 +28,7 @@ const FetchData = () => {
 
     let contents = loading
         ? <p><em>Loading...</em></p>
-        : renderForecastsTable(forecasts, logout);
+        : renderForecastsTable(forecasts, logoutContext);
 
     return (
         <div>
