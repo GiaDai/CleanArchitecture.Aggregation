@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Aggregation.Application.Features.Products.Commands.CreateProduct
 {
-    public partial class CreateProductCommand : IRequest<Response<int>>
+    public partial class CreateProductCommand : IRequest<Response<Product>>
     {
         [Required]
         public string Name { get; set; }
@@ -23,7 +23,7 @@ namespace CleanArchitecture.Aggregation.Application.Features.Products.Commands.C
         [Required]
         public decimal Rate { get; set; }
     }
-    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Response<int>>
+    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Response<Product>>
     {
         private readonly IProductRedisCacheAsync _productRedisCache;
         private readonly IProductRepositoryAsync _productRepository;
@@ -41,13 +41,13 @@ namespace CleanArchitecture.Aggregation.Application.Features.Products.Commands.C
             _mapper = mapper;
         }
 
-        public async Task<Response<int>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+        public async Task<Response<Product>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
             var product = _mapper.Map<Product>(request);
             await _productRepository.AddAsync(product);
             await _productRedisCache.AddAsync(product.Barcode, product, TimeSpan.FromDays(1));
             await _productElastic.AddProductAsync(product, "product");
-            return new Response<int>(product.Id);
+            return new Response<Product>(product);
         }
     }
 }

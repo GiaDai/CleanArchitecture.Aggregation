@@ -1,5 +1,7 @@
-﻿using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Elastic;
+﻿using CleanArchitecture.Aggregation.Application.Interfaces.Repositories;
+using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Elastic;
 using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.RedisCache;
+using CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories;
 using CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories.Elastic;
 using CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories.RedisCache;
 using CleanArchitecture.Aggregation.Infrastructure.Shared.Environments;
@@ -119,6 +121,7 @@ namespace CleanArchitecture.Aggregation.WebApp.Extensions
         {
             services.AddTransient<IProductRedisCacheAsync, ProductRedisCacheAsync>();
             services.AddTransient<IProductElasticAsync, ProductElasticAsync>();
+            services.AddTransient<IScrumRepository, ScrumRepository>();       
         }
     }
 }

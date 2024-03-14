@@ -7,22 +7,18 @@ using CleanArchitecture.Aggregation.Application.Features.Products.Queries.GetAll
 using CleanArchitecture.Aggregation.Application.Features.Products.Queries.GetPagedProducts;
 using CleanArchitecture.Aggregation.Application.Features.Products.Queries.GetProductById;
 using CleanArchitecture.Aggregation.Application.Features.Products.Queries.SearchProductByName;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CleanArchitecture.Aggregation.WebApp.Controllers.v1
 {
-    //[Authorize]
+    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/product")]
     public class ProductController : BaseApiController

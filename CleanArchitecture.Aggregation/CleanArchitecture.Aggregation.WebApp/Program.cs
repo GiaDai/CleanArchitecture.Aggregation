@@ -65,4 +65,5 @@ app.MapControllerRoute(
 app.MapFallbackToFile("index.html");
 app.MapHub<SignalrHub>("/hub");
 app.MapHub<JoinChat>("/chat");
+app.MapHub<ScrumBoardHub>("/scrumboardhub");
 app.Run();

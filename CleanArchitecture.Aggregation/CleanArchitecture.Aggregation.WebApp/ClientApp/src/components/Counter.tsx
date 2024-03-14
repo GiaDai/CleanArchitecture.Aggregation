@@ -4,6 +4,8 @@ import { ProductContext } from '../context/productContext';
 import { faker} from '@faker-js/faker';
 import { useQuery } from '@tanstack/react-query';
 import { getProducts } from '../apis/product.api';
+import { putUpdateProduct } from '../apis/product.api';
+import { useMutation } from '@tanstack/react-query';
 const Counter = () => {
     const { data, isError } = useQuery({
         queryKey: ['products', 1, 20],
@@ -73,7 +75,34 @@ const CounterTwo = React.memo(() => {
 
 const DisplayProducts = React.memo((props: any) => {
     const { products, removeProduct, updateProduct } = props;
-    console.log('DisplayProducts rendered');
+    const gerneateProduct = () => {
+        const product: IProduct = {
+            id:0,
+            rate: faker.number.int({ min: 99, max: 999}) ,
+            name: faker.person.firstName() + ' ' + faker.person.lastName(),
+            barcode: faker.internet.ipv4(),
+            description: faker.lorem.paragraph()
+        };
+        return product;
+    }
+
+    const mutationPut = useMutation({
+        mutationFn: (product: IProduct) => putUpdateProduct(product),
+    });
+
+    const updateProductMutation = (id: number) => {
+        const product = gerneateProduct();
+        product.id = id;
+        mutationPut.mutate(product,{
+            onSuccess: () => {
+                console.log('Product updated successfully');
+            },
+            onError: (error) => {
+                console.log('Product updated failed', error);
+            }
+        });
+    }
+    
     return (
         <div>
             {products.map((product: IProduct) => {
@@ -82,7 +111,7 @@ const DisplayProducts = React.memo((props: any) => {
                         <h3>{product.name}</h3>
                         <p>{product.description}</p>
                         <button className='btn btn-danger' onClick={() => removeProduct(product.id)}>Remove</button>
-                        <button className='btn btn-primary' onClick={() => updateProduct(product.id)}>Update</button>
+                        <button className='btn btn-primary' onClick={() => updateProductMutation(product.id)}>Update</button>
                     </div>
                 );
             })}

@@ -1,5 +1,5 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
-
+# https://github.com/vikas0sharma/ScrumPoker/blob/master/src/API/clientapp/src/components/admin/SprintDetail.tsx
 # dependencies
 /node_modules
 

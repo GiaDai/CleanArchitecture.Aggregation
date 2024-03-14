@@ -52,7 +52,7 @@ export const Routing = () => {
   return (
     <Routes>
       {/* <ProtectedRoutes> */}
-        <Route exact path='/' element={<ProtectedRoutes><Home/></ProtectedRoutes>} />
+        <Route exact path='/' element={<Home/>} />
         <Route path='/counter' element={<Counter/>} />
         <Route path='/fetch-data' element={<FetchData/>} />
         <Route path='/products'>
