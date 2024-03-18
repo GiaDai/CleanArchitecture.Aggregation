@@ -35,6 +35,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{6D10
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Aggregation.ConsoleApp", "CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.ConsoleApp\CleanArchitecture.Aggregation.ConsoleApp.csproj", "{B6A33FFC-3049-4610-9B3B-BF05A58539DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Aggregation.MongoApi", "CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.MongoApi\CleanArchitecture.Aggregation.MongoApi.csproj", "{A1570BFE-2641-41A8-86D9-A2B999523C69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{B6A33FFC-3049-4610-9B3B-BF05A58539DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6A33FFC-3049-4610-9B3B-BF05A58539DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6A33FFC-3049-4610-9B3B-BF05A58539DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1570BFE-2641-41A8-86D9-A2B999523C69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1570BFE-2641-41A8-86D9-A2B999523C69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1570BFE-2641-41A8-86D9-A2B999523C69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1570BFE-2641-41A8-86D9-A2B999523C69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,6 +103,7 @@ Global
 		{79B2DFF1-D6BF-4646-B59A-D5127B933488} = {FCFF41C4-3086-4681-9EE6-742D7DEE4451}
 		{6D10E9B7-3A00-41F9-9E71-3DB6ED7FA232} = {54584D29-7783-460F-90D8-EBE935EF6C27}
 		{B6A33FFC-3049-4610-9B3B-BF05A58539DA} = {6D10E9B7-3A00-41F9-9E71-3DB6ED7FA232}
+		{A1570BFE-2641-41A8-86D9-A2B999523C69} = {ADCD932C-4EAD-4034-BC19-F87A7E43EB8A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A06A7F40-4F6F-4655-A39F-154F61C4F5BB}

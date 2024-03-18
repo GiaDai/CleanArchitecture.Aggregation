@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SNAbXzYtHATd+M/UKXTwiF5rpDdDUNiUIWqhEWUMn82cXKQz+Gtaebd/lVMcIKg+nc6CG2TPFrFdLQuXIYfvMQ==",
+  "dgSpecHash": "doCFJhu0/qs3lNQni1JYVHH0GKOprN+lqv6g6zznvQI6PmNNlfkrTkRi9IWX0S8o+6kG76/IK28qBoYJWYIQxg==",
   "success": true,
-  "projectFilePath": "E:\\Github\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation.ConsoleApp\\CleanArchitecture.Aggregation.ConsoleApp.csproj",
+  "projectFilePath": "D:\\Github\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation.ConsoleApp\\CleanArchitecture.Aggregation.ConsoleApp.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

@@ -1,0 +1,6 @@
+@CleanArchitecture.Aggregation.MongoApi_HostAddress = http://localhost:5298
+
+GET {{CleanArchitecture.Aggregation.MongoApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

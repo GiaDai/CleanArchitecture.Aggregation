@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Github\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation.ConsoleApp\\CleanArchitecture.Aggregation.ConsoleApp.csproj": {}
+    "D:\\Github\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation.ConsoleApp\\CleanArchitecture.Aggregation.ConsoleApp.csproj": {}
   },
   "projects": {
-    "E:\\Github\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation.ConsoleApp\\CleanArchitecture.Aggregation.ConsoleApp.csproj": {
+    "D:\\Github\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation.ConsoleApp\\CleanArchitecture.Aggregation.ConsoleApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Github\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation.ConsoleApp\\CleanArchitecture.Aggregation.ConsoleApp.csproj",
+        "projectUniqueName": "D:\\Github\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation.ConsoleApp\\CleanArchitecture.Aggregation.ConsoleApp.csproj",
         "projectName": "CleanArchitecture.Aggregation.ConsoleApp",
-        "projectPath": "E:\\Github\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation.ConsoleApp\\CleanArchitecture.Aggregation.ConsoleApp.csproj",
-        "packagesPath": "C:\\Users\\toanla\\.nuget\\packages\\",
-        "outputPath": "E:\\Github\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation.ConsoleApp\\obj\\",
+        "projectPath": "D:\\Github\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation.ConsoleApp\\CleanArchitecture.Aggregation.ConsoleApp.csproj",
+        "packagesPath": "C:\\Users\\ANHTOAN\\.nuget\\packages\\",
+        "outputPath": "D:\\Github\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation\\CleanArchitecture.Aggregation.ConsoleApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\toanla\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ANHTOAN\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,11 +34,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -60,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

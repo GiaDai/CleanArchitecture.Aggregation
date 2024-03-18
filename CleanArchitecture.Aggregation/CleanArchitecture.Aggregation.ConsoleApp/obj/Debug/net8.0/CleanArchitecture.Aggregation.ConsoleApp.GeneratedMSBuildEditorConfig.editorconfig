@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = CleanArchitecture.Aggregation.ConsoleApp
-build_property.ProjectDir = E:\Github\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.ConsoleApp\
+build_property.ProjectDir = D:\Github\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.ConsoleApp\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
