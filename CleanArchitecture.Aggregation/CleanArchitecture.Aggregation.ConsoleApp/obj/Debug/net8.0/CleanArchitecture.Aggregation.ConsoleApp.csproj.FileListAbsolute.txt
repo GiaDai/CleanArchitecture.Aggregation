@@ -1,0 +1,15 @@
+E:\Github\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.ConsoleApp\bin\Debug\net8.0\CleanArchitecture.Aggregation.ConsoleApp.exe
+E:\Github\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.ConsoleApp\bin\Debug\net8.0\CleanArchitecture.Aggregation.ConsoleApp.deps.json
+E:\Github\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.ConsoleApp\bin\Debug\net8.0\CleanArchitecture.Aggregation.ConsoleApp.runtimeconfig.json
+E:\Github\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.ConsoleApp\bin\Debug\net8.0\CleanArchitecture.Aggregation.ConsoleApp.dll
+E:\Github\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.ConsoleApp\bin\Debug\net8.0\CleanArchitecture.Aggregation.ConsoleApp.pdb
+E:\Github\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.ConsoleApp\obj\Debug\net8.0\CleanArchitecture.Aggregation.ConsoleApp.GeneratedMSBuildEditorConfig.editorconfig
+E:\Github\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.ConsoleApp\obj\Debug\net8.0\CleanArchitecture.Aggregation.ConsoleApp.AssemblyInfoInputs.cache
+E:\Github\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.ConsoleApp\obj\Debug\net8.0\CleanArchitecture.Aggregation.ConsoleApp.AssemblyInfo.cs
+E:\Github\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.ConsoleApp\obj\Debug\net8.0\CleanArchitecture.Aggregation.ConsoleApp.csproj.CoreCompileInputs.cache
+E:\Github\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.ConsoleApp\obj\Debug\net8.0\CleanArchitecture.Aggregation.ConsoleApp.sourcelink.json
+E:\Github\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.ConsoleApp\obj\Debug\net8.0\CleanArchitecture.Aggregation.ConsoleApp.dll
+E:\Github\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.ConsoleApp\obj\Debug\net8.0\refint\CleanArchitecture.Aggregation.ConsoleApp.dll
+E:\Github\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.ConsoleApp\obj\Debug\net8.0\CleanArchitecture.Aggregation.ConsoleApp.pdb
+E:\Github\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.ConsoleApp\obj\Debug\net8.0\CleanArchitecture.Aggregation.ConsoleApp.genruntimeconfig.cache
+E:\Github\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.ConsoleApp\obj\Debug\net8.0\ref\CleanArchitecture.Aggregation.ConsoleApp.dll
