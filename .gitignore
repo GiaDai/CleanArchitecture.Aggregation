@@ -30,6 +30,9 @@
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.MongoApi/bin
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.MongoApi/obj
 
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.ConsoleApp/bin
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.ConsoleApp/obj
+
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApp/bin
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApp/obj
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApp/ClientsApp/node_modules
