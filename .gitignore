@@ -3,6 +3,8 @@
 ################################################################################
 
 /.vs
+**/bin/
+**/obj/
 /.vscode
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Application/bin
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Application/obj
