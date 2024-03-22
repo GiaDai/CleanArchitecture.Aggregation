@@ -53,5 +53,19 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories.
                 await _redisDatabase.AddAsync($"{_prefix}{product.Barcode}", product, expiry);
             }
         }
+
+        public async Task<TimeSpan> CheckRedisAvailability()
+        {
+            try
+            {
+                return await _redisCacheClient.GetDefaultDatabase().Database.PingAsync();
+            }
+            catch (Exception ex)
+            {
+                // Xử lý khi có lỗi kết nối tới Redis (ví dụ: log lỗi, thông báo, ...)
+                Console.WriteLine($"Error checking Redis availability: {ex.Message}");
+                return TimeSpan.Zero;
+            }
+        }
     }
 }

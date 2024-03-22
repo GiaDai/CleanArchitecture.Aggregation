@@ -78,7 +78,8 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers
                 _productRedisCache.AddAsync(product.Barcode, product, TimeSpan.FromDays(1)),
                 SendMessageToQueueAsync(product, "bookQueue")
             );
-            return Ok(result[1] ? "RabbitMQ is healthy" : "RabbitMQ is not healthy");
+            var timeSpan = await _productRedisCache.CheckRedisAvailability();
+            return Ok(result[1] ? $"RabbitMQ is healthy: {timeSpan.TotalMilliseconds}" : "RabbitMQ is not healthy");
             //return Ok("RabbitMQ is healthy");
             //await _productRedisCache.AddAsync(product.Barcode, product, TimeSpan.FromDays(1));
             //var isSendMessage = await SendMessageToQueueAsync(product, "bookQueue");

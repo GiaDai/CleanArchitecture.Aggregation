@@ -17,5 +17,7 @@ namespace CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Redi
         Task<bool> RemoveAsync(string key);
         // Remove all products from cache
         Task RemoveAllAsync();
+
+        Task<TimeSpan> CheckRedisAvailability();
     }
 }
