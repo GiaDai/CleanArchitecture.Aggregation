@@ -4,6 +4,7 @@ using CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories.Elas
 using CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories.RedisCache;
 using CleanArchitecture.Aggregation.Infrastructure.Shared.Environments;
 using CleanArchitecture.Aggregation.WebApi.Consumers;
+using CleanArchitecture.Aggregation.WebApi.Services;
 using Elastic.Clients.Elasticsearch;
 using Elastic.Transport;
 using GreenPipes;
@@ -123,12 +124,21 @@ namespace CleanArchitecture.Aggregation.WebApi.Extensions
                             h.Password(password);
                         });
 
+                        cfg.UseRetry(retryConfig =>
+                        {
+                            retryConfig.Interval(5, TimeSpan.FromSeconds(5));
+                            // Cấu hình retry policy theo ý muốn
+                        });
+
+
                         cfg.ReceiveEndpoint("bookQueue", e =>
                         {
                             e.PrefetchCount = 16;
-                            e.UseMessageRetry(r => r.Interval(2, 100));
                             e.Consumer<BookEmailConsumer>(context);
                             e.Consumer<BookSellerConsumer>(context);
+                            // Bắt sự kiện ConnectionException
+                            e.ConnectReceiveEndpointObserver(new RabbitMqReceiveEndpointObserver());
+
                         });
                     });
                 });

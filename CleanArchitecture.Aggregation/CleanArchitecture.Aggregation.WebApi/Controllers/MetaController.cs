@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.RedisCache;
+﻿using CleanArchitecture.Aggregation.Application.Globals;
+using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.RedisCache;
 using CleanArchitecture.Aggregation.Domain.Entities;
 using CleanArchitecture.Aggregation.Infrastructure.Shared.Environments;
 using CleanArchitecture.Aggregation.WebApi.Models;
@@ -59,7 +60,8 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers
         public ActionResult<string> Env()
         {
             var postgre = _databaseSettingsProvider.GetMySQLConnectionString();
-            return Ok(postgre);
+
+            return Ok($"Connection rabbitmq is: {ConnectionGlobal.IsRabbitMqConnection}");
         }
 
         // Response RabbitMQ status is healthy or not
@@ -75,11 +77,11 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers
             };
             // add redis and rabbitmq in task whenall and return the result
            var result = await Task.WhenAll(
-                _productRedisCache.AddAsync(product.Barcode, product, TimeSpan.FromDays(1)),
+                //_productRedisCache.AddAsync(product.Barcode, product, TimeSpan.FromDays(1)),
                 SendMessageToQueueAsync(product, "bookQueue")
             );
-            var timeSpan = await _productRedisCache.CheckRedisAvailability();
-            return Ok(result[1] ? $"RabbitMQ is healthy: {timeSpan.TotalMilliseconds}" : "RabbitMQ is not healthy");
+            //var timeSpan = await _productRedisCache.CheckRedisAvailability();
+            return Ok(result[0] ? $"RabbitMQ is healthy" : "RabbitMQ is not healthy");
             //return Ok("RabbitMQ is healthy");
             //await _productRedisCache.AddAsync(product.Barcode, product, TimeSpan.FromDays(1));
             //var isSendMessage = await SendMessageToQueueAsync(product, "bookQueue");
@@ -88,8 +90,8 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers
 
         private async Task<bool> SendMessageToQueueAsync(Product product, string queueName)
         {
-            bool isRabbitMQHealthy = _rabbitMqSettingProdiver.IsHealthy();
-            if (!isRabbitMQHealthy)
+            //bool isRabbitMQHealthy = _rabbitMqSettingProdiver.IsHealthy();
+            if (!ConnectionGlobal.IsRabbitMqConnection)
             {
                 Console.WriteLine("RabbitMQ service is not healthy. Skipping message sending.");
                 return false;
