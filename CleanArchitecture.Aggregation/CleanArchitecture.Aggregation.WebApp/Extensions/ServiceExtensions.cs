@@ -8,13 +8,8 @@ using CleanArchitecture.Aggregation.Infrastructure.Shared.Environments;
 using Elastic.Clients.Elasticsearch;
 using Elastic.Transport;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using StackExchange.Redis.Extensions.Newtonsoft;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 
 namespace CleanArchitecture.Aggregation.WebApp.Extensions

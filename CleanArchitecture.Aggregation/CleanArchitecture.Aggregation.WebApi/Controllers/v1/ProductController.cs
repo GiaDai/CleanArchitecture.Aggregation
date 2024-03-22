@@ -24,6 +24,7 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers.v1
 {
     //[Authorize]
     [ApiVersion("1.0")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ProductController : BaseApiController
     {
         // GET: api/<controller>

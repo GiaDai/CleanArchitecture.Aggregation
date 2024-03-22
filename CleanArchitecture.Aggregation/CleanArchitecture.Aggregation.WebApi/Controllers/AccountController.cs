@@ -2,15 +2,13 @@
 using CleanArchitecture.Aggregation.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.Aggregation.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;

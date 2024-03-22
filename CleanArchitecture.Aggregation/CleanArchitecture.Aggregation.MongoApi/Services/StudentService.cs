@@ -44,5 +44,11 @@ namespace CleanArchitecture.Aggregation.MongoApi.Services
         {
             return await _studentCollection.ReplaceOneAsync(s => s.Id == id, student);
         }
+
+        public Task<Student> GetByIdUsingBuilder(string id)
+        {
+            var filter = Builders<Student>.Filter.Eq(s => s.Id, id);
+            return _studentCollection.Find(filter).FirstOrDefaultAsync();
+        }
     }
 }

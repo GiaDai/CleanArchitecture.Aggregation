@@ -35,7 +35,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{6D10
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Aggregation.ConsoleApp", "CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.ConsoleApp\CleanArchitecture.Aggregation.ConsoleApp.csproj", "{B6A33FFC-3049-4610-9B3B-BF05A58539DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Aggregation.MongoApi", "CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.MongoApi\CleanArchitecture.Aggregation.MongoApi.csproj", "{A1570BFE-2641-41A8-86D9-A2B999523C69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Aggregation.MongoApi", "CleanArchitecture.Aggregation\CleanArchitecture.Aggregation.MongoApi\CleanArchitecture.Aggregation.MongoApi.csproj", "{A1570BFE-2641-41A8-86D9-A2B999523C69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -18,6 +18,6 @@ namespace CleanArchitecture.Aggregation.MongoApi.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public List<string> Courses { get; set; } = null!;
         [BsonIgnore]
-        public List<Course> CourseList { get; set; } = null!;
+        public List<Course>? CourseList { get; set; } = null!;
     }
 }

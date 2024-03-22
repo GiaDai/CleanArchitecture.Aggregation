@@ -3,8 +3,11 @@ using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.RedisCac
 using CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories.Elastic;
 using CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories.RedisCache;
 using CleanArchitecture.Aggregation.Infrastructure.Shared.Environments;
+using CleanArchitecture.Aggregation.WebApi.Consumers;
 using Elastic.Clients.Elasticsearch;
 using Elastic.Transport;
+using GreenPipes;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -95,6 +98,44 @@ namespace CleanArchitecture.Aggregation.WebApi.Extensions
             }
         }
 
+        // Add rabbitmq extension
+        public static void AddRabbitMQExtension(this IServiceCollection services, IConfiguration config)
+        {
+            // Build the intermediate service provider
+            var sp = services.BuildServiceProvider();
+            using (var scope = sp.CreateScope())
+            {
+                var _rabbitMqSettings = scope.ServiceProvider.GetRequiredService<IRabbitMqSettingProdiver>();
+                var hostName = _rabbitMqSettings.GetHostName();
+                var userName = _rabbitMqSettings.GetUserName();
+                var password = _rabbitMqSettings.GetPassword();
+                var vHost = _rabbitMqSettings.GetVHost();
+
+                services.AddMassTransit(x =>
+                {
+                    x.AddConsumer<BookEmailConsumer>();
+                    x.AddConsumer<BookSellerConsumer>();
+                    x.UsingRabbitMq((context, cfg) =>
+                    {
+                        cfg.Host(hostName, vHost, h =>
+                        {
+                            h.Username(userName);
+                            h.Password(password);
+                        });
+
+                        cfg.ReceiveEndpoint("bookQueue", e =>
+                        {
+                            e.PrefetchCount = 16;
+                            e.UseMessageRetry(r => r.Interval(2, 100));
+                            e.Consumer<BookEmailConsumer>(context);
+                            e.Consumer<BookSellerConsumer>(context);
+                        });
+                    });
+                });
+                services.AddMassTransitHostedService();
+            }
+        }
+
         public static void AddApiVersioningExtension(this IServiceCollection services)
         {
             services.AddApiVersioning(config =>
@@ -113,6 +154,7 @@ namespace CleanArchitecture.Aggregation.WebApi.Extensions
             services.AddTransient<IDatabaseSettingsProvider, DatabaseSettingsProvider>();
             services.AddTransient<IRedisSettingsProvider, RedisSettingsProvider>();
             services.AddTransient<IElasticSettingsProvider, ElasticSettingsProvider>();
+            services.AddTransient<IRabbitMqSettingProdiver, RabbitMqSettingProdiver>();
         }
 
         public static void AddDependencyInjectionExtension(this IServiceCollection services)

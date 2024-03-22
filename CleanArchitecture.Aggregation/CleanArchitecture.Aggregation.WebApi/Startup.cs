@@ -48,6 +48,7 @@ namespace CleanArchitecture.Aggregation.WebApi
             services.AddAutoMapper(typeof(Application.Mappings.GeneralProfile));
             services.AddRedisCacheExtension(_config);
             services.AddElasicSearchExtension(_config);
+            services.AddRabbitMQExtension(_config);
             services.AddSwaggerExtension();
             //services.AddHostedService<RedisConnectionMonitor>();
             services.AddControllers().AddNewtonsoftJson(o => o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);

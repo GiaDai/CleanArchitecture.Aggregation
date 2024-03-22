@@ -34,5 +34,18 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Shared.Environments
         public static bool HasElasticApiKey() => !string.IsNullOrEmpty(Environment.GetEnvironmentVariable(ElasticApiKey));
 
         #endregion
+
+        #region RabbitMQ
+        public const string RabbitMqHostName = "RABBITMQ_HOSTNAME";
+        public static bool HasRabbitMqHostName() => !string.IsNullOrEmpty(Environment.GetEnvironmentVariable(RabbitMqHostName));
+        public const string RabbitMqUserName = "RABBITMQ_USERNAME";
+        public static bool HasRabbitMqUserName() => !string.IsNullOrEmpty(Environment.GetEnvironmentVariable(RabbitMqUserName));
+        public const string RabbitMqPassword = "RABBITMQ_PASSWORD";
+        public static bool HasRabbitMqPassword() => !string.IsNullOrEmpty(Environment.GetEnvironmentVariable(RabbitMqPassword));
+        public const string RabbitMqVHost = "RABBITMQ_VHOST";
+        public static bool HasRabbitMqVHost() => !string.IsNullOrEmpty(Environment.GetEnvironmentVariable(RabbitMqVHost));
+        public const string RabbitMqPort = "RABBITMQ_PORT";
+        public static bool HasRabbitMqPort() => !string.IsNullOrEmpty(Environment.GetEnvironmentVariable(RabbitMqPort));
+        #endregion
     }
 }
