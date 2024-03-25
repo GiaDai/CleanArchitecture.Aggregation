@@ -1,0 +1,32 @@
+version: '3.0'
+services:
+  workerone:
+    container_name: workerone
+    image: worker.api:v.0.1
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - REDIS_HOST=redis-17098.c292.ap-southeast-1-1.ec2.cloud.redislabs.com
+      - REDIS_PORT=17098
+      - REDIS_PASSWORD=VVgSUFS48Ih6JApUA1lHHBB9HUGtFGQH
+      - RABBITMQ_HOSTNAME=armadillo.rmq.cloudamqp.com
+      - RABBITMQ_VHOST=opgsyzno
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=opgsyzno
+      - RABBITMQ_PASSWORD=ptQuvwi_b18fi81Z12K4yp4RgjxC5vjj
+    ports:
+      - "8080:8080"
+  workertwo:
+    container_name: workertwo
+    image: worker.api:v.0.1
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - REDIS_HOST=redis-17098.c292.ap-southeast-1-1.ec2.cloud.redislabs.com
+      - REDIS_PORT=17098
+      - REDIS_PASSWORD=VVgSUFS48Ih6JApUA1lHHBB9HUGtFGQH
+      - RABBITMQ_HOSTNAME=armadillo.rmq.cloudamqp.com
+      - RABBITMQ_VHOST=opgsyzno
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=opgsyzno
+      - RABBITMQ_PASSWORD=ptQuvwi_b18fi81Z12K4yp4RgjxC5vjj
+    ports:
+      - "8081:8081"
