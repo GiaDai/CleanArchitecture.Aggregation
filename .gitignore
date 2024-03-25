@@ -35,6 +35,12 @@
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.ConsoleApp/bin
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.ConsoleApp/obj
 
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WorkerOne/bin
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WorkerOne/obj
+
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WorkerTwo/bin
+/CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WorkerTwo/obj
+
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApp/bin
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApp/obj
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApp/ClientsApp/node_modules

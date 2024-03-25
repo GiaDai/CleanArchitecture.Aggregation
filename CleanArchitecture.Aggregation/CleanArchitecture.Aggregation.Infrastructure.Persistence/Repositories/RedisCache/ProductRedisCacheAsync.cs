@@ -33,7 +33,8 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories.
 
         public async Task<bool> RemoveAsync(string key)
         {
-            return await _redisDatabase.RemoveAsync(key);
+            // remove product from cache where the key is the barcode
+            return await _redisDatabase.RemoveAsync($"{_prefix}{key}");
         }
 
         public async Task RemoveAllAsync()
@@ -66,6 +67,11 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories.
                 Console.WriteLine($"Error checking Redis availability: {ex.Message}");
                 return TimeSpan.Zero;
             }
+        }
+
+        public async Task<Product> FindAsync(string barcode)
+        {
+            return await _redisDatabase.GetAsync<Product>($"{_prefix}{barcode}");
         }
     }
 }

@@ -8,10 +8,10 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Shared.Environments
 {
     public class RedisSettingsProvider : IRedisSettingsProvider
     {
-        private readonly IWebHostEnvironment _env;
+        private readonly IHostEnvironment _env;
         private readonly IConfiguration _config;
         public RedisSettingsProvider(
-            IWebHostEnvironment env,
+            IHostEnvironment env,
             IConfiguration config
             )
         {

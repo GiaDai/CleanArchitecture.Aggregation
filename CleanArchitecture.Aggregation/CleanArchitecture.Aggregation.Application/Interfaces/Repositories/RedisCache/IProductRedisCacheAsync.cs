@@ -11,6 +11,8 @@ namespace CleanArchitecture.Aggregation.Application.Interfaces.Repositories.Redi
         Task<bool> IsUniqueBarcodeAsync(string barcode);
         // Add a product to cache
         Task<bool> AddAsync(string key, Product value, TimeSpan expiry);
+        // Find a product in cache
+        Task<Product> FindAsync(string barcode);
         // Add range of products to cache
         Task AddRangeAsync(List<Product> value, TimeSpan expiry);
         // Remove a product from cache

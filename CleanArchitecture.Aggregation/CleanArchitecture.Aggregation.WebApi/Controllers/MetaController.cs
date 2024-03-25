@@ -2,14 +2,11 @@
 using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.RedisCache;
 using CleanArchitecture.Aggregation.Domain.Entities;
 using CleanArchitecture.Aggregation.Infrastructure.Shared.Environments;
-using CleanArchitecture.Aggregation.WebApi.Models;
 using MassTransit;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 using RabbitMQ.Client;
-using RabbitMQ.Client.Exceptions;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -68,7 +65,35 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers
         [HttpGet("/rabbitmq")]
         public async Task<ActionResult<string>> RabbitMQ()
         {
-            var product = new Product
+            var productOne = new Product
+            {
+                Barcode = Guid.NewGuid().ToString(),
+                Description = "Test Product",
+                Name = "Test Product",
+                Rate = 100
+            };
+            var productTwo = new Product
+            {
+                Barcode = Guid.NewGuid().ToString(),
+                Description = "Test Product",
+                Name = "Test Product",
+                Rate = 100
+            };
+            var productThree = new Product
+            {
+                Barcode = Guid.NewGuid().ToString(),
+                Description = "Test Product",
+                Name = "Test Product",
+                Rate = 100
+            };
+            var productFour = new Product
+            {
+                Barcode = Guid.NewGuid().ToString(),
+                Description = "Test Product",
+                Name = "Test Product",
+                Rate = 100
+            };
+            var productFive = new Product
             {
                 Barcode = Guid.NewGuid().ToString(),
                 Description = "Test Product",
@@ -76,16 +101,39 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers
                 Rate = 100
             };
             // add redis and rabbitmq in task whenall and return the result
-           var result = await Task.WhenAll(
-                //_productRedisCache.AddAsync(product.Barcode, product, TimeSpan.FromDays(1)),
-                SendMessageToQueueAsync(product, "bookQueue")
-            );
-            //var timeSpan = await _productRedisCache.CheckRedisAvailability();
-            return Ok(result[0] ? $"RabbitMQ is healthy" : "RabbitMQ is not healthy");
-            //return Ok("RabbitMQ is healthy");
-            //await _productRedisCache.AddAsync(product.Barcode, product, TimeSpan.FromDays(1));
-            //var isSendMessage = await SendMessageToQueueAsync(product, "bookQueue");
-            //return Ok(isSendMessage ? "RabbitMQ is healthy" : "RabbitMQ is not healthy");
+            //var result = await Task.WhenAll(
+            //    //_productRedisCache.AddAsync(product.Barcode, product, TimeSpan.FromDays(1)),
+            //    SendMessageToQueueAsync(productOne, "bookQueue"),
+            //    SendMessageToQueueAsync(productTwo, "bookQueue"),
+            //    SendMessageToQueueAsync(productThree, "bookQueue"),
+            //    SendMessageToQueueAsync(productFour, "bookQueue"),
+            //    SendMessageToQueueAsync(productFive, "bookQueue")
+            //);
+            //Console.WriteLine($"Product One: {productOne.Barcode}");
+            //Console.WriteLine($"Product Two: {productTwo.Barcode}");
+            //Console.WriteLine($"Product Three: {productThree.Barcode}");
+            //Console.WriteLine($"Product Four: {productFour.Barcode}");
+            //Console.WriteLine($"Product Five: {productFive.Barcode}");
+            await SendMessageToQueueAsync(productOne, "productQueue");
+            // wait for the product to be added to the cache
+            var product = await WaitForProductReponse(productOne.Barcode);
+            return Ok(product);
+
+        }
+
+        private async Task<Product> WaitForProductReponse(string productId)
+        {
+            while (true)
+            {
+                var product = await _productRedisCache.FindAsync(productId);
+                if (product != null)
+                {
+                    // remove the product from cache
+                    await _productRedisCache.RemoveAsync(productId);
+                    return product;
+                }
+                await Task.Delay(1000);
+            }
         }
 
         private async Task<bool> SendMessageToQueueAsync(Product product, string queueName)

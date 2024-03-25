@@ -114,8 +114,6 @@ namespace CleanArchitecture.Aggregation.WebApi.Extensions
 
                 services.AddMassTransit(x =>
                 {
-                    x.AddConsumer<BookEmailConsumer>();
-                    x.AddConsumer<BookSellerConsumer>();
                     x.UsingRabbitMq((context, cfg) =>
                     {
                         cfg.Host(hostName, vHost, h =>
@@ -128,17 +126,6 @@ namespace CleanArchitecture.Aggregation.WebApi.Extensions
                         {
                             retryConfig.Interval(5, TimeSpan.FromSeconds(5));
                             // Cấu hình retry policy theo ý muốn
-                        });
-
-
-                        cfg.ReceiveEndpoint("bookQueue", e =>
-                        {
-                            e.PrefetchCount = 16;
-                            e.Consumer<BookEmailConsumer>(context);
-                            e.Consumer<BookSellerConsumer>(context);
-                            // Bắt sự kiện ConnectionException
-                            e.ConnectReceiveEndpointObserver(new RabbitMqReceiveEndpointObserver());
-
                         });
                     });
                 });

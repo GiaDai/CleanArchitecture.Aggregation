@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-CleanArchitecture.Aggregation.WorkerOne-ad55dae0-9dd6-4d63-b5bf-120ed997bace</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CleanArchitecture.Aggregation.Infrastructure.Identity\CleanArchitecture.Aggregation.Infrastructure.Identity.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.Aggregation.Infrastructure.Persistence\CleanArchitecture.Aggregation.Infrastructure.Persistence.csproj" />
+  </ItemGroup>
+</Project>

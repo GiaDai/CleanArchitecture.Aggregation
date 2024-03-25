@@ -7,10 +7,10 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Shared.Environments
 {
     public class ElasticSettingsProvider : IElasticSettingsProvider
     {
-        private readonly IWebHostEnvironment _env;
+        private readonly IHostEnvironment _env;
         private readonly IConfiguration _config;
         public ElasticSettingsProvider(
-            IWebHostEnvironment env,
+            IHostEnvironment env,
             IConfiguration config
             )
         {

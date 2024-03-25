@@ -11,10 +11,10 @@ namespace CleanArchitecture.Aggregation.Infrastructure.Shared.Environments
 {
     public class RabbitMqSettingProdiver : IRabbitMqSettingProdiver
     {
-        private readonly IWebHostEnvironment _env;
+        private readonly IHostEnvironment _env;
         private readonly IConfiguration _config;
         public RabbitMqSettingProdiver(
-            IWebHostEnvironment env,
+            IHostEnvironment env,
             IConfiguration config
             )
         {
