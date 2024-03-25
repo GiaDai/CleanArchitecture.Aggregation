@@ -1,0 +1,28 @@
+version: '3.0'
+services:
+  worker.one:
+    container_name: web.api
+    image: web.api:v.0.1
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - POSTGRES_CONNECTION_STRING=Host=cleanarchitectureaggregation-db-1;Port=5432;Database=dvdrental;Username=postgres;Password=postgres
+      - RABBITMQ_HOSTNAME=rabbiqmq
+      - RABBITMQ_VHOST=/
+      - RABBITMQ_USERNAME=vietbank
+      - RABBITMQ_PASSWORD=123456789
+      - RABBITMQ_PORT=5672
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=redis
+      - ELASTIC_CLOUD_ID=c0155c02d35f4d06a77a04ecd5a75ded:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvJGMxNzZmMmFjOTNkZTRlZjg5MjFhOTg5NGZiZDVhNzcyJDAwM2I3MDAwN2ZiMzQ5NDU4ZGU4MjAzODdkZTEzODBj
+      - ELASTIC_API_KEY=RVhDR0NJNEJRYkw3Vm9wd0Z5Xzg6VUJETUw4Z0lUc3ltV05xVjd0MUJWdw==
+    ports:
+        - 5052:5052
+    networks:
+      - microservices
+
+networks:
+  microservices:
+    driver: bridge
+    external: true
+    name: microservices

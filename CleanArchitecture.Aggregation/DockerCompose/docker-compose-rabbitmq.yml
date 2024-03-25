@@ -1,0 +1,23 @@
+version: '3.0'
+services:
+  worker.one:
+    container_name: worker.one
+    image: worker.one:v.0.1
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - RABBITMQ_HOSTNAME:rabbiqmq
+      - RABBITMQ_VHOST:/
+      - RABBITMQ_USERNAME:vietbank
+      - RABBITMQ_PASSWORD:123456789
+      - RABBITMQ_PORT:5672
+      - REDIS_HOST:redis
+      - REDIS_PORT:6379
+      - REDIS_PASSWORD:redis
+    networks:
+      - microservices
+
+networks:
+  microservices:
+    driver: bridge
+    external: true
+    name: microservices

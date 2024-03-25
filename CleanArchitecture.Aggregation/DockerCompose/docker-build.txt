@@ -1,0 +1,5 @@
+docker build -f CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WorkerOne/Dockerfile -t worker.one:v.0.1 .
+docker build -f CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WorkerTwo/Dockerfile -t worker.two:v.0.1 .
+docker build -f CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WorkerThree/Dockerfile -t worker.three:v.0.1 .
+docker build -f CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WorkerFour/Dockerfile -t worker.four:v.0.1 .
+docker build -f CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.WebApi/Dockerfile -t web.api:v.0.1 .

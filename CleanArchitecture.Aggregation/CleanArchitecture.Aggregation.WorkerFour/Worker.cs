@@ -1,13 +1,12 @@
-namespace CleanArchitecture.Aggregation.WorkerOne
+namespace CleanArchitecture.Aggregation.WorkerFour
 {
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
-        private readonly IHostApplicationLifetime _lifetime;
-        public Worker(ILogger<Worker> logger, IHostApplicationLifetime lifetime)
+
+        public Worker(ILogger<Worker> logger)
         {
             _logger = logger;
-            _lifetime = lifetime;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -20,9 +19,6 @@ namespace CleanArchitecture.Aggregation.WorkerOne
                 }
                 await Task.Delay(1000, stoppingToken);
             }
-            //await Task.CompletedTask;
-            //_logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-            //_lifetime.StopApplication();
         }
     }
 }

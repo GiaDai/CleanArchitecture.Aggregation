@@ -1,10 +1,11 @@
-namespace CleanArchitecture.Aggregation.WorkerOne
+namespace CleanArchitecture.Aggregation.WorkerThree
 {
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
         private readonly IHostApplicationLifetime _lifetime;
-        public Worker(ILogger<Worker> logger, IHostApplicationLifetime lifetime)
+        public Worker(
+            ILogger<Worker> logger, IHostApplicationLifetime lifetime)
         {
             _logger = logger;
             _lifetime = lifetime;
@@ -14,10 +15,7 @@ namespace CleanArchitecture.Aggregation.WorkerOne
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                if (_logger.IsEnabled(LogLevel.Information))
-                {
-                    _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                }
+                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 await Task.Delay(1000, stoppingToken);
             }
             //await Task.CompletedTask;

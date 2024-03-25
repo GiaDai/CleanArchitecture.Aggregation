@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>dotnet-CleanArchitecture.Aggregation.WorkerOne-ad55dae0-9dd6-4d63-b5bf-120ed997bace</UserSecretsId>
+    <UserSecretsId>dotnet-CleanArchitecture.Aggregation.WorkerFour-72a30dc8-b46f-46fc-aa34-9dfad5fa6eea</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
