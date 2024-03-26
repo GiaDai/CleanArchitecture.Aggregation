@@ -8,6 +8,7 @@ using CleanArchitecture.Aggregation.WebApi.Data;
 using CleanArchitecture.Aggregation.WebApi.Extensions;
 using CleanArchitecture.Aggregation.WebApi.GraphQL.Mutations;
 using CleanArchitecture.Aggregation.WebApi.GraphQL.Queries;
+using CleanArchitecture.Aggregation.WebApi.Hosted;
 using CleanArchitecture.Aggregation.WebApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -50,6 +51,7 @@ namespace CleanArchitecture.Aggregation.WebApi
             services.AddElasicSearchExtension(_config);
             services.AddRabbitMQExtension(_config);
             services.AddSwaggerExtension();
+            services.AddHostedService<ProductConsumerHosted>();
             //services.AddHostedService<RedisConnectionMonitor>();
             services.AddControllers().AddNewtonsoftJson(o => o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddApiVersioningExtension();

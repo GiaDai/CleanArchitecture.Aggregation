@@ -39,7 +39,6 @@ namespace CleanArchitecture.Aggregation.WorkerApi.Extensions
                             e.PrefetchCount = 4;
                             e.UseMessageRetry(r => r.Interval(2, 100));
                             e.Consumer<ProductConsumer>(context);
-
                         });
 
 

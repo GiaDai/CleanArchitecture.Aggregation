@@ -121,12 +121,6 @@ namespace CleanArchitecture.Aggregation.WebApi.Extensions
                             h.Username(userName);
                             h.Password(password);
                         });
-
-                        cfg.UseRetry(retryConfig =>
-                        {
-                            retryConfig.Interval(5, TimeSpan.FromSeconds(5));
-                            // Cấu hình retry policy theo ý muốn
-                        });
                     });
                 });
                 services.AddMassTransitHostedService();

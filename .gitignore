@@ -5,6 +5,7 @@
 /.vs
 **/bin/
 **/obj/
+**/node_modules/
 /.vscode
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Application/bin
 /CleanArchitecture.Aggregation/CleanArchitecture.Aggregation.Application/obj

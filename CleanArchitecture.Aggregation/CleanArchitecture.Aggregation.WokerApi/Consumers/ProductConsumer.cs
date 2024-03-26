@@ -24,7 +24,9 @@ namespace CleanArchitecture.Aggregation.WorkerApi.Consumers
             book.Description = "This is a book which have updated by WorkerOne";
             // delay for 1 second
             //await Task.Delay(1000);
+            // Set noack to false to requeue the message if the worker crashes
             await _productRedisCacheAsync.AddAsync(book.Barcode, book, TimeSpan.FromMinutes(5));
+            
         }
     }
 }

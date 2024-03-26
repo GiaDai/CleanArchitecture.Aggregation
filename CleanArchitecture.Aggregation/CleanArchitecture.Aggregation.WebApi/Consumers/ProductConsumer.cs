@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Aggregation.WebApi.Consumers
 {
-    public class BookSellerConsumer : IConsumer<Product>
+    public class ProductConsumer : IConsumer<Product>
     {
-        private readonly ILogger<BookSellerConsumer> _logger;
-        public BookSellerConsumer(
-            ILogger<BookSellerConsumer> logger
+        private readonly ILogger<ProductConsumer> _logger;
+        public ProductConsumer(
+            ILogger<ProductConsumer> logger
             )
         {
             _logger = logger;

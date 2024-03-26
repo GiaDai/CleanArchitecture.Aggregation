@@ -6,8 +6,11 @@ using MassTransit;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using RabbitMQ.Client;
+using StackExchange.Redis;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -114,10 +117,10 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers
             //Console.WriteLine($"Product Three: {productThree.Barcode}");
             //Console.WriteLine($"Product Four: {productFour.Barcode}");
             //Console.WriteLine($"Product Five: {productFive.Barcode}");
-            await SendMessageToQueueAsync(productOne, "productQueue");
+            await SendMessageToQueueAsync(productOne, "queue");
             // wait for the product to be added to the cache
-            var product = await WaitForProductReponse(productOne.Barcode);
-            return Ok(product);
+            // var product = await WaitForProductReponse(productOne.Barcode);
+            return Ok();
 
         }
 
@@ -147,26 +150,29 @@ namespace CleanArchitecture.Aggregation.WebApi.Controllers
 
             try
             {
-                await _rabbitMqSettingProdiver.GetUri(_bus, queueName, product);
-                return true;
-                //using (var connection = _connectionFactory.CreateConnection())
-                //using (var channel = connection.CreateModel())
-                //{
-                //    channel.QueueDeclare(queue: queueName,
-                //                         durable: false,
-                //                         exclusive: false,
-                //                         autoDelete: false,
-                //                         arguments: null);
+                //await _rabbitMqSettingProdiver.GetUri(_bus, queueName, product);
+                //return true;
+                using (var connection = _connectionFactory.CreateConnection())
+                using (var channel = connection.CreateModel())
+                {
+                    channel.QueueDeclare(queue: queueName,
+                                         
+                                         durable: true,
+                                         exclusive: false,
+                                         autoDelete: false,
+                                         arguments: new Dictionary<string, object> {
+                                             { "x-message-ttl", "5000" } // TTL cho message (milliseconds)
+                                         });
 
-                //    var body = System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(book));
+                    var body = System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(product));
 
-                //    channel.BasicPublish(exchange: "",
-                //                         routingKey: queueName,
-                //                         basicProperties: null,
-                //                         body: body);
+                    channel.BasicPublish(exchange: "",
+                                         routingKey: queueName,
+                                         basicProperties: null,
+                                         body: body);
 
-                //    return true;
-                //}
+                    return true;
+                }
             }
             catch (Exception ex)
             {
