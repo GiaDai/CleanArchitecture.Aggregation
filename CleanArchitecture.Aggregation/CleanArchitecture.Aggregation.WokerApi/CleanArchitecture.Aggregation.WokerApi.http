@@ -1,0 +1,6 @@
+@CleanArchitecture.Aggregation.WokerApi_HostAddress = http://localhost:5101
+
+GET {{CleanArchitecture.Aggregation.WokerApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
