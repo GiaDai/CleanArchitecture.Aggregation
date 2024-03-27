@@ -18,9 +18,6 @@ namespace CleanArchitecture.Aggregation.WorkerThree
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 await Task.Delay(1000, stoppingToken);
             }
-            //await Task.CompletedTask;
-            //_logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-            //_lifetime.StopApplication();
         }
     }
 }

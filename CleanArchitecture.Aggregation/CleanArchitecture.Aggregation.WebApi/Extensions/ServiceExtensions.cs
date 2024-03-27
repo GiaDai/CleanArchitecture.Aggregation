@@ -3,11 +3,8 @@ using CleanArchitecture.Aggregation.Application.Interfaces.Repositories.RedisCac
 using CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories.Elastic;
 using CleanArchitecture.Aggregation.Infrastructure.Persistence.Repositories.RedisCache;
 using CleanArchitecture.Aggregation.Infrastructure.Shared.Environments;
-using CleanArchitecture.Aggregation.WebApi.Consumers;
-using CleanArchitecture.Aggregation.WebApi.Services;
 using Elastic.Clients.Elasticsearch;
 using Elastic.Transport;
-using GreenPipes;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;

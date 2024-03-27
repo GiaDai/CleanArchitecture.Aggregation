@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanArchitecture.Aggregation.Infrastructure.Identity\CleanArchitecture.Aggregation.Infrastructure.Identity.csproj" />
-    <ProjectReference Include="..\CleanArchitecture.Aggregation.Infrastructure.Persistence\CleanArchitecture.Aggregation.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.Aggregation.WorkerCore\CleanArchitecture.Aggregation.WorkerCore.csproj" />
   </ItemGroup>
 </Project>

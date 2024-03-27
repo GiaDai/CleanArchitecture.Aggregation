@@ -2,12 +2,11 @@
 using RabbitMQ.Client.Core.DependencyInjection;
 using RabbitMQ.Client.Core.DependencyInjection.Configuration;
 
-namespace CleanArchitecture.Aggregation.WorkerThree.Extensions
+namespace CleanArchitecture.Aggregation.WorkerFour.Extensions
 {
     public static class ServiceExtensions
     {
-        // Add rabbitmq extension
-        public static void AddRabbitMQExtension(this IServiceCollection _services, IConfiguration config)
+        public static void AddRabbitMQExtension(this IServiceCollection _services, IConfiguration _config)
         {
             var sp = _services.BuildServiceProvider();
             using (var scope = sp.CreateScope())
@@ -58,13 +57,6 @@ namespace CleanArchitecture.Aggregation.WorkerThree.Extensions
         public static void AddEnvironmentVariablesExtension(this IServiceCollection services)
         {
             services.AddTransient<IRabbitMqSettingProdiver, RabbitMqSettingProdiver>();
-        }
-
-        public static void AddDependencyInjectionExtension(this IServiceCollection services)
-        {
-            //services.AddTransient<IProductRedisCacheAsync, ProductRedisCacheAsync>();
-            //services.AddTransient<IProductElasticAsync, ProductElasticAsync>();
-            //https://github.com/antonyvorontsov/RabbitMQ.Client.Core.DependencyInjection/blob/master/examples/Examples.ConsumerHost/CustomMessageHandler.cs
         }
     }
 }
